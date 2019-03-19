@@ -1,0 +1,60 @@
+<!-- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><i class="fas fa-baby fa-1x"></i><span class="px-2"></span>Kinder</span></a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 pb-1 mt-lg-0 navbar-brand">
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="#!/family">Family</a>
+            </li>
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="#!/new">New</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item" ng-hide="isUserLoggedIn()">
+                <a class="nav-link" href="#!/login" data-toggle="modal" data-target="#loginModal">Login</a>
+            </li>
+            <li class="nav-item" ng-hide="isUserLoggedIn()">
+                <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="javascript:void(0)" ng-click="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav> -->
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><i class="fas fa-baby fa-1x"></i><span class="px-2"></span>Kinder</span></a>
+    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#collapsibleNavId" aria-controls="collapsibleNavId"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="collapsibleNavId">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="#!/family">Family</a>
+            </li>
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="#!/new">New</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+            <li class="nav-item" ng-hide="isUserLoggedIn()">
+                <a class="nav-link" href="#!/login" data-toggle="modal" data-target="#loginModal">Login</a>
+            </li>
+            <li class="nav-item" ng-hide="isUserLoggedIn()">
+                <a class="nav-link" href="#!/login" ng-click="openModal()">Modal Login</a>
+            </li>
+            <li class="nav-item" ng-hide="isUserLoggedIn()">
+                <a class="nav-link" href="#">Sign Up</a>
+            </li>
+            <li class="nav-item" ng-show="isUserLoggedIn()">
+                <a class="nav-link" href="javascript:void(0)" ng-click="logout()">Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>

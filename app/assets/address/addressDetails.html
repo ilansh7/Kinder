@@ -1,0 +1,61 @@
+
+
+    <div class="personal-data form-group">
+        <!-- </fieldset> -->
+        <div class="form-row">
+            <div class="col-md-12 pb-2" ng-show="hideLegalGardianAddresses()">Address :</div>
+            <div style="display: inline-flex;" ng-repeat="address in guardian_addresses">
+                <div class="form-group col-md-4">
+                    <!-- <label for="inputAddressType">Type</label> -->
+                    <select id="inputAddressType" class="form-control" ng-model="address.type">
+                        <option ng-repeat="(id,text) in addressType" value="{{id}}">{{text}}</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <!-- <label for="txtStreet">Address</label> -->
+                    <input type="text" class="form-control" id="txtAddress" ng-model="address.address" placeholder="Address">
+                </div>
+                <div class="form-group col-md-3">
+                    <!-- <label for="txtCountry">Country</label> -->
+                    <input type="text" class="form-control" id="txtCountry" ng-model="address.country" placeholder="Country">
+                </div>
+            </div>
+        </div>
+        <!-- <div class="form-row" hidden>
+            <div class="form-group col-md-4">
+                <label for="txtStreet">Address</label>
+                <input type="text" class="form-control" id="txtStreet" ng-model="guardian_street" placeholder="Street Name">
+            </div>
+            <div class="form-group col-md-2">
+                <label>&nbsp;</label>
+                <input type="text" class="form-control" id="txtHouse" ng-model="guardian_house" placeholder="House">
+            </div>
+            <div class="form-group col-md-2">
+                <label>&nbsp;</label>
+                <input type="text" class="form-control" id="txtExt" ng-model="guardian_a" placeholder="Ext">
+            </div>
+            <div class="form-group col-md-4">
+                <label>&nbsp;</label>
+                <input type="text" class="form-control" id="txtNeighborhood" ng-model="guardian_a" placeholder="Neighborhood" required>
+                <div class="invalid-feedback">Please provide a valid city.</div>
+            </div>
+        </div> -->
+        <!-- <div class="form-row" hidden>
+            <div class="form-group col-md-6">
+                <label for="inputCity">City</label>
+                <input type="text" class="form-control" id="inputCity" ng-model="guardian_city">
+            </div>
+            <div class="form-group col-md-4">
+                <label for="inputState">State</label>
+                <input type="text" class="form-control" id="inputState" ng-model="guardian_state">
+                <select id="inputStateList" class="form-control" hidden>
+                    <option selected>Choose...</option>
+                    <option>...</option>
+                </select>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="inputZip">Zip</label>
+                <input type="text" class="form-control" id="inputZip" ng-model="guardian_zipcode">
+            </div>
+        </div> -->
+    </div>

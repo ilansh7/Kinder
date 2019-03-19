@@ -1,0 +1,50 @@
+<div class="container pl-2" style="border: 1px solid gray;">
+    <!-- Tab panes -->
+    <ul class="permits-group" role="group" aria-label="Basic example">
+        <li class="active permits-group-item"><a ng-click="dispalyTabContext('regulationsTab')" id="btnRegulations" class="btn btn-outline-dark mr-1">Regulations  <span class="text-success"><i class="fas fa-check-circle fa-1x"></i></span></a></li>
+        <li class="permits-group-item"><a ng-click="dispalyTabContext('healthTab')" id="btnHealth" class="btn btn-outline-dark mr-1">Health</a></li>
+        <li class="permits-group-item"><a ng-click="dispalyTabContext('cameraTab')" id="btnCamera" class="btn btn-outline-dark mr-1">Cameras</a></li>
+        <li class="permits-group-item"><a ng-click="dispalyTabContext('paymentTab')" id="btnPayment" class="btn btn-outline-dark">Payments  <span class="text-success"><i class="fas fa-check-circle fa-1x"></i></span></a></li>
+    </ul>
+    <div id="tabContent" class="tab-content">
+        <div class="tab-pane" id="regulationsTab" style="direction: rtl;">
+            <h1 class="text">תקנונים ונהלים לסטודנט</h1>
+            <section class="rt_content_section">
+                <span class="rich-Html-wrap">
+                    <div class="ms-rtestate-field" style="display:inline" aria-labelledby="ctl00_PlaceHolderMain_RichHtmlField1_label">
+                        <h3><a>זכויות סטודנטים המשרתים במילואים </a></h3>
+                        <p>&#160;</p>
+                        <p>זכויות סטודנטים המשרתים במילואים בכל הקשור לזכאות למועד חלופי לבחינות סוף סמסטר, מועד חלופי להגשת תרגילים ועבודות, סיוע בהשלמת חומר השיעורים, זכאות לכרטיסי צילום, חזרה על קורס ללא תשלום בגין שירות מילואים, אי פגיעה במועד הרישום לקורסים ושאילת ספרים בספריה מפורטים ב<a href="app/docs/doc1.pdf" target="_blank"><span lang="HE" dir="rtl">&quot;תקנון זכויות סטודנטים המשרתים במילואים&quot;</span></a><strong>.</strong></p>
+                    </div>
+                </span>
+            </section>
+            <form name="frmRegulations">
+                <label class="text-right"><input type="checkbox" ng-model="cbPermits.regulations"> קראתי ואני מסכים לתנאי התקנון : </label><br/>
+                <!-- <tt>value1 = {{checkboxModel.value1}}</tt><br/>
+                <tt>value2 = {{checkboxModel.value2}}</tt><br/> -->
+            </form>            
+        </div>
+
+        <div class="tab-pane" id="healthTab">Healte Regulation <br /> that was developed by James Gosling from the Sun Microsystems in 1995.
+            <p>&#160;</p>
+            <form name="frmHealth">
+                <label class="text-right"><input type="checkbox" ng-model="cbPermits.health"> קראתי ואני מסכים לתנאים : </label><br/>
+            </form>            
+        </div>
+        <div class="tab-pane" id="cameraTab">Use camera in kinder.
+            <p>&#160;</p>
+            <form name="frmCamera">
+                <label class="text-right"><input type="checkbox" ng-model="cbPermits.camera"> קראתי ואני מסכים להצבת מצלמות : </label><br/>
+            </form>            
+        </div>
+        <div class="tab-pane" id="paymentTab">Patments :
+            <p>&#160;</p>
+            <form name="frmPayment">
+                <label class="text-right"><input type="checkbox" ng-model="cbPermits.payment"> קראתי ואני מסכים לתנאי התשלום : </label><br/>
+            </form>            
+        </div>
+        
+    </div>
+</div>
+
+

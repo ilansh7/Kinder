@@ -1,0 +1,82 @@
+* {
+	/* margin: 0 auto; */
+	padding: 0;
+	/* box-sizing: border-box;
+	max-width: 800px;
+    direction: rtl;
+    border: solid blue; */
+    direction: ltr;
+    /* border: 1px solid blue; */
+}
+
+/* body {
+  /* text-align: center;
+  font-size: 5vw; * /
+}
+
+.label {
+    /*text-align: right;* /
+}
+
+.autorizations, .personal-data {
+    /* width: 45%; * /
+} */
+
+.login {
+    max-width: 500px;
+}
+
+.recipe-card > img {
+    height: 300px;
+    object-fit: cover;
+}
+
+.new-recipe {
+    max-width: 700px;
+}
+
+ul.permits-group:after {
+    clear: both;
+    display: block;
+    content: "";
+  }
+  
+.permits-group-item {
+      float: left;
+      list-style-type: none;
+  }
+
+.datepicker {
+    /* background-color: red; */
+    display: flex;
+}
+.fade.in {
+    opacity: 1;
+}
+
+.modal.in .modal-dialog {
+  -webkit-transform: translate(0, 0);
+       -o-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.modal-backdrop.in {
+    filter: alpha(opacity=50);
+    opacity: .5;
+}
+
+.card-header > h5 > a{
+    text-decoration: none;
+    /*text-decoration: underline;*/
+}
+
+.panel-heading .panel-title a{
+    cursor: pointer;
+}
+
+.div-disabled
+{
+  pointer-events: none;
+  opacity: 0.5;
+  background: #CCC;
+}

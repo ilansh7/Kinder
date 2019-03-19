@@ -1,0 +1,49 @@
+<!-- The Modal -->
+<div class="modal" id="loginModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <!-- <h4 class="text-center modal-title">Modal Heading</h4> -->
+                <button type="button" class="close" id="btnDismissModal" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body container">
+                <h3 class="text-center modal-title">Login</h3>
+                <div class="alert alert-danger" role="alert" ng-show="invalidLogin">
+                    <strong>Invalid Login</strong> incorrect email or password
+                </div>
+                <form>
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <!-- <span class="input-group-addon"><i class="fas fa-user fa-1x"></i></span> -->
+                        <input type="email" class="form-control" id="email" ng-model="email">
+                    </div>
+                    <!-- <div style="margin-bottom: 25px" class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">                                        
+                    </div> -->
+                    <div class="form-group">
+                        <label for="pwd">Password:</label>
+                        <input type="password" class="form-control" id="pwd" ng-model="pwd">
+                    </div>
+                    <button type="button" class="btn btn-success btn-block" ng-click="login()">Log In</button>
+                    <div class="text-center mt-5">
+                        <p>
+                            <a href="#!/signup">Forgot your password ?</a>
+                        </p>
+                        <p>
+                            <a href="#!/signup">create an account</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+            <!-- Modal footer -->
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div> -->
+        </div>
+    </div>
+</div>

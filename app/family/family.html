@@ -1,0 +1,163 @@
+<kinder-navbar></kinder-navbar>
+<div class="container mt-5">
+    <h1>{{activeUser.first_name}}'s User Data</h1>
+    <h4>UserId : {{currFamily.objectId}}, FamilyId : {{currFamily.family.id}}, FamilyNum : {{currFamily.familyNum}}, Person : {{currFamily.gurdian.objectId}}</h4>
+
+    <!-- <div class="row">
+        <div class="col-sm-6 col-md-4 my-2" ng-repeat="recipe in recipes">
+            <div class="card recipe-card">
+                <img class="card-img-top" ng-src="{{recipe.imgUrl}}" alt="">
+                <div class="card-body">
+                    <h4 class="card-title">{{recipe.name}}</h4>
+                    <p class="card-text">{{recipe.description}}</p>
+                </div>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="container">
+    <!-- <form name="frmFamily"> -->
+        <div class="form-row">
+            <uib-accordion close-others="oneAtATime" style="direction: rtl; float: right;">
+                <div uib-accordion-group class="panel-default w-100" > <!-- ng-class="{'div-disabled': isEmptySpause}" -->
+                    <uib-accordion-heading>Legal Guardian details &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span ng-hide="isEmptyLegalGardian" class="text-warning float-right">
+                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Legal Guardian Section" ng-click="alert('hey');"></i>
+                        </span>
+                        <span ng-hide="isEmptyLegalGardian" class="text-success float-right">
+                            <i class="fas fa-check-circle fa-1x" title="Legal Guardian Section is Filled"></i>
+                        </span>
+                        <span ng-show="isEmptyLegalGardian" class="text-danger float-right">
+                            <i class="fas fa-plus-circle fa-1x" title="Fill Legal Guardian Section"></i>
+                        </span>
+                    </uib-accordion-heading>                    
+                    <form name="frmLegalGardian">
+                        <guardian-details></guardian-details>
+                        <address-details ng-hide="hideLegalGardianAddress()"></address-details>
+                        <phone-details ng-hide="hideLegalGardianPhones()"></phone-details>
+                        <button type="submit" class="btn btn-primary" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
+                        <button type="submit" class="btn btn-primary" ng-show="isEmptyLegalGardian" ng-click="createLegalGardian()">Save</button>
+                    </form>
+                </div>
+                      
+                <div uib-accordion-group class="panel-default" heading="Spause details">
+                    <uib-accordion-heading>Spause details &nbsp;&nbsp;&nbsp;&nbsp;
+                        <span ng-hide="isEmptySpause" class="text-warning float-right">
+                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Legal Guardian Section"></i>
+                        </span>
+                        <span ng-hide="isEmptySpause" class="text-success float-right">
+                            <i class="fas fa-check-circle fa-1x" title="Spause Section is Filled"></i>
+                        </span>
+                        <span ng-show="isEmptySpause" class="text-danger float-right">
+                            <i class="fas fa-plus-circle fa-1x" title="Fill Spause Section"></i>
+                        </span>
+                    </uib-accordion-heading>                    
+                        <!-- <guardian-details></guardian-details>
+                    <address-details></address-details>
+                    <button type="button" class="btn btn-info" ng-click="getData()">Get Data</button>
+                    <phone-details></phone-details> -->
+                    <button type="submit" class="btn btn-primary" ng-hide="isEmptySpause">Update</button>
+                    <button type="submit" class="btn btn-primary" ng-show="isEmptySpause">Save</button>
+                </div>
+                          
+                <div uib-accordion-group class="mt-1" heading="{{recipe.name}}" ng-repeat="recipe in recipes" is-open="$first">
+                    {{recipe.description}}
+                </div>
+            </uib-accordion>
+        </div>
+        <div class="form-row">                
+            <!-- <div class="personal-data form-group col-md-6">
+                <fieldset ng-form="subscriber"> <!-- style="border: 1px solid red; background-color: bisque;" -- >
+                <legend>Subscriber Details :</legend>
+                <div class="form-row">
+                    <div class="form-group col-md-3">
+                        <label for="txtIdNumber">ID Number</label>
+                        <input type="text" class="form-control" id="txtIdNumber" placeholder="ID Number">
+                    </div>
+                    <div class="form-group col-md-5">
+                        <label for="txtLastName">Last Name</label>
+                        <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
+                    </div>
+                    <!-- <abel class="col-md-2 col-form-label text-left"> -- >
+                    <div class="form-group col-md-4">
+                        <label for="txtFirstName">First Name</label>
+                        <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4"> <!--  ng-controller="datepickerCtrl" -- >
+                        <label for="dtBirthday">Date of Bitrh</label>
+                        <!-- <input type="date" class="form-control" id="dtBirthday" placeholder="Birthday"> -- >
+                        <div class="datepicker">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary" ng-click="openDP()">
+                                    <i class="far fa-calendar-alt"></i>
+                                </button>
+                            </span>
+                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="txtParentName">Parent Name</label>
+                        <input type="text" class="form-control" id="txtParentName" placeholder="Parent Name">
+                    </div>
+                    <!-- <abel class="col-md-2 col-form-label text-left"> -- >
+                    <div class="form-group col-md-4">
+                        <label for="txtSpouseName">Spouse Name</label>
+                        <input type="text" class="form-control" id="txtSpouseName" placeholder="Spouse Name">
+                    </div>
+                </div>
+                </fieldset>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <label for="txtStreet">Address</label>
+                        <input type="text" class="form-control" id="txtStreet" placeholder="Street Name">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>&nbsp;</label>
+                        <input type="text" class="form-control" id="txtHouse" placeholder="House">
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label>&nbsp;</label>
+                        <input type="text" class="form-control" id="txtExt" placeholder="Ext">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label>&nbsp;</label>
+                        <input type="text" class="form-control" id="txtNeighborhood" placeholder="Neighborhood" required>
+                        <div class="invalid-feedback">Please provide a valid city.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="inputCity">City</label>
+                        <input type="text" class="form-control" id="inputCity">
+                    </div>
+                    <div class="form-group col-md-4">
+                        <label for="inputState">State</label>
+                        <select id="inputState" class="form-control">
+                            <option selected>Choose...</option>
+                            <option>...</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-2">
+                        <label for="inputZip">Zip</label>
+                        <input type="text" class="form-control" id="inputZip">
+                    </div>
+                </div>
+            </div> -->
+            <div class="spacer form-group">
+                <div class="form-row">
+                    <p>&nbsp;</p>
+                </div>
+            </div></div>
+            <div class="form-row"> 
+            <div class="autorizations form-group">
+                <div class="form-row">
+                    <permits-form></permits-form>
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign in</button>
+    <!-- </form> -->
+</div>
