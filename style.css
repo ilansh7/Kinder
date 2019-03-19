@@ -26,6 +26,10 @@
     max-width: 500px;
 }
 
+.modal-win-dow {
+    min-width: 50%!important;
+}
+
 .recipe-card > img {
     height: 300px;
     object-fit: cover;
@@ -72,6 +76,14 @@ ul.permits-group:after {
 
 .panel-heading .panel-title a{
     cursor: pointer;
+}
+
+.min-width-80 {
+    min-width: 80%;
+}
+
+.fix-text {
+    padding: 0 1.25rem;
 }
 
 .div-disabled

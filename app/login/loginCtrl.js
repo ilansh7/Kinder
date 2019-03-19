@@ -13,7 +13,7 @@ app.controller("loginCtrl", function($scope, $rootScope, $location, $log, loginS
         let loginPwd = ($scope.pwd) ? $scope.pwd : pwd;
 
         //let modal = document.getElementById("loginModal");
-        let closeModal = document.getElementById("btnDismissModal");
+        let closeModal = document.getElementById("btnDismissLoginModal");
         //debugger;
         loginSrv.login(loginEmail, loginPwd).then(function(activeUser) {
             $scope.activeUser = activeUser;
@@ -38,8 +38,8 @@ app.controller("loginCtrl", function($scope, $rootScope, $location, $log, loginS
 
     $scope.okBtn = function () {
         $log.info("ok pressed from loginCtrl");
-        //$rootScope.modalInstance.close($rootScope.selected.item);
-        this.close($rootScope.selected.item);
+        $rootScope.modalInstance.close($rootScope.selected.item);
+        //this.close($rootScope.selected.item);
     };
 
     function someComponentController(){

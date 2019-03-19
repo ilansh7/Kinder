@@ -31,7 +31,8 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
     }
 
     //function addPerson(family_rel_type, identity_id, first_name, last_name, gender, birthday, userId, family_id, email, type) {
-    function addPerson(personPtr) {
+    function addPerson(personObj) {
+        let async = $q.defer();
 
         // const tmpPerson = Parse.Object.extend('Person');
         // const person = new tmpPerson();
@@ -53,13 +54,15 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
         // //    person = obj;
         // //}
 
-        personPtr.save().then(function(result) {
+        personObj.save().then(function(result) {
             //if (typeof document !== 'undefined') document.write(`Person created: ${JSON.stringify(result)}`);
             $log.info('Person created', result);
+            async.resolve(null);
         },
         function(error) {
             //if (typeof document !== 'undefined') document.write(`Error while creating Person: ${JSON.stringify(error)}`);
             $log.error('Error while creating Person: ', error);
+            async.reject(error);
         });
     }
 
@@ -93,7 +96,7 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
             }
             async.resolve(personObj);
         }, function(error) {
-            async.reject(error);
+            async.reject(error);async.reject(error);
             $log.error('Error while fetching Person', error);
         });
         return async.promise;

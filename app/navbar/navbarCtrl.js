@@ -2,7 +2,7 @@
 app.controller("navbarCtrl", function($scope, $rootScope, loginSrv, $uibModal, $log, $location) {
 
     $rootScope.selected = "xxx";
-    $rootScope.modalInstance = undefined;
+    //$rootScope.modalInstance = undefined;
     $scope.isUserLoggedIn = function() {
         return loginSrv.isLoggedIn();
     }

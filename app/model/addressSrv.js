@@ -20,22 +20,17 @@ app.factory("addressSrv", function ($q, $log) {
         this.address = "";
     }
 
-    function addAddress() {
+    function addAddress(addressObj) {
         let async = $q.defer();
-        const tmpAddress = Parse.Object.extend('Address');
-        const address = new tmpAddress();
+        //const tmpAddress = Parse.Object.extend('Address');
+        //const address = new tmpAddress();
         
-        //address.set('family_id', 1);
-        
-        address.save().then(
-            (result) => {
+        addressObj.save().then(function(results) {
                 //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
                 //address.set('family_id', calcFamilyNum(address.id));
-                updateFamily(address.id);
-                async.resolve(address);
-                $log.info('Address created', result);
-            },
-            (error) => {
+                async.resolve(results);
+                $log.info('Address created', results);
+            }, function(error) {
                 //if (typeof document !== 'undefined') document.write(`Error while creating Address: ${JSON.stringify(error)}`);
                 async.reject(error);
                 $log.error('Error while creating Address: ', error);

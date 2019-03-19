@@ -18,8 +18,8 @@
 
 <div class="container">
     <!-- <form name="frmFamily"> -->
-        <div class="form-row">
-            <uib-accordion close-others="oneAtATime" style="direction: rtl; float: right;">
+        <div class="form-row w-100">
+            <uib-accordion close-others="oneAtATime" class="min-width-80" style="direction: rtl; float: right;">
                 <div uib-accordion-group class="panel-default w-100" > <!-- ng-class="{'div-disabled': isEmptySpause}" -->
                     <uib-accordion-heading>Legal Guardian details &nbsp;&nbsp;&nbsp;&nbsp;
                         <span ng-hide="isEmptyLegalGardian" class="text-warning float-right">
@@ -34,10 +34,11 @@
                     </uib-accordion-heading>                    
                     <form name="frmLegalGardian">
                         <guardian-details></guardian-details>
-                        <address-details ng-hide="hideLegalGardianAddress()"></address-details>
-                        <phone-details ng-hide="hideLegalGardianPhones()"></phone-details>
+                        <address-details ng-show="hideLegalGardianAddress()"></address-details>
+                        <phone-details ng-show="hideLegalGardianPhones()"></phone-details>
                         <button type="submit" class="btn btn-primary" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary" ng-show="isEmptyLegalGardian" ng-click="createLegalGardian()">Save</button>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
                     </form>
                 </div>
                       
@@ -160,4 +161,5 @@
         </div>
         <button type="submit" class="btn btn-primary">Sign in</button>
     <!-- </form> -->
+    <add-address-modal></add-address-modal>
 </div>

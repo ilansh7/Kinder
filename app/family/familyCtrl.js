@@ -67,6 +67,15 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
             });
         }
     }
+
+    $scope.saveAddress = function() {
+        $log.info("Button SaveAddress Clicked");
+        let closeModal = document.getElementById("btnDismissAddressModal");
+        //debugger;
+        addressSrv.addAddress(fillAddressPointer()).then(function(person) {
+            closeModal.click();
+        });
+    }
     
     // DatePicker methods
     //$scope.birthday = new Date(1965,2,13);
@@ -100,13 +109,13 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
 
     $scope.isEmptyLegalGardian = appUser.emptySection.legalGardian;
     $scope.isEmptySpause = appUser.emptySection.spause;
-    $scope.isEmptyLegalGardianPhones = true;
+    $scope.isNotEmptyLegalGardianPhones = false;
     $scope.hideLegalGardianPhones = function() {
-        return $scope.isEmptyLegalGardianPhones;
+        return $scope.isNotEmptyLegalGardianPhones;
     }
-    $scope.isEmptyLegalGardianAddress = true;
+    $scope.isNotEmptyLegalGardianAddress = false;
     $scope.hideLegalGardianAddress = function() {
-        return $scope.isEmptyLegalGardianAddress;
+        return $scope.isNotEmptyLegalGardianAddress;
     }
 
     $scope.currFamily.family = appUser.activeUser.family_Obj;
@@ -156,7 +165,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
                 //return;
             }
             else {
-                $scope.isEmptyLegalGardianPhones = false;
+                $scope.isNotEmptyLegalGardianPhones = true;
                 $scope.guardian_phones = phoneResults;
                 for (let i = 0; i < phoneResults.length; i++) {
                     $scope.guardian_phones[i].phone = (phoneResults[i].country_code !== "972" ? "+" + phoneResults[i].country_code + "-" : "") +
@@ -171,7 +180,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
                 //return;
             }
             else {
-                $scope.isEmptyLegalGardianAddress = false;
+                $scope.isNotEmptyLegalGardianAddress = true;
                 $scope.guardian_addresses = addressResults
                 for (let i = 0; i < addressResults.length; i++) {
                     $scope.guardian_addresses[i].address = addressResults[i].address1 + 
@@ -201,6 +210,27 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         personPtr.set('family_id', $scope.currFamily.family);
 
         return personPtr;
+    }
+
+    function fillAddressPointer() {
+        let personPtr = new Parse.Object("Person");
+        personPtr.id = $scope.currFamily.gurdian.objectId;
+
+        let addressPtr = new Parse.Object("Address");
+        addressPtr.set('type', $scope.addr_type);
+        addressPtr.set('address1', $scope.addr_street);
+        addressPtr.set('address2', undefined);
+        addressPtr.set('city', $scope.addr_city);
+        addressPtr.set('house', $scope.addr_house);
+        addressPtr.set('misc', $scope.addr_neighborhood);
+        addressPtr.set('state', $scope.addr_state);
+        addressPtr.set('country', 'Israel');
+        addressPtr.set('zipcode', $scope.addr_zipcode);
+        addressPtr.set('location', undefined);
+        addressPtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
+        addressPtr.set('object_rel_id', personPtr);        
+
+        return addressPtr;
     }
 
     function disabled(data) {
