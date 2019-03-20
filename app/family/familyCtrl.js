@@ -77,6 +77,15 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         });
     }
     
+    $scope.savePhone = function() {
+        $log.info("Button SavePhone Clicked");
+        let closeModal = document.getElementById("btnDismissPhoneModal");
+        //debugger;
+        phoneSrv.addPhone(fillPhonePointer()).then(function(person) {
+            closeModal.click();
+        });
+    }
+    
     // DatePicker methods
     //$scope.birthday = new Date(1965,2,13);
     $scope.formats = ['dd-MMMM-yyyy', "dd/MM/yyyy", 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate'];
@@ -231,6 +240,22 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         addressPtr.set('object_rel_id', personPtr);        
 
         return addressPtr;
+    }
+
+    function fillPhonePointer() {
+        let personPtr = new Parse.Object("Person");
+        personPtr.id = $scope.currFamily.gurdian.objectId;
+
+        let phonePtr = new Parse.Object("Phones");
+        phonePtr.set('type', $scope.phone_type);
+        phonePtr.set('area_code', $scope.phone_areaCode);
+        phonePtr.set('phone_number', $scope.phone_number);
+        phonePtr.set('ext', undefined);
+        phonePtr.set('country_code', $scope.phone_country);
+        phonePtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
+        phonePtr.set('object_rel_id', personPtr);  
+        
+        return phonePtr;
     }
 
     function disabled(data) {

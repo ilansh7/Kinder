@@ -16,22 +16,17 @@ app.factory("phoneSrv", function ($q, $log) {
         this.phone = "";
     }
 
-    function addPhone() {
+    function addPhone(phoneObj) {
         let async = $q.defer();
-        const tmpPhone = Parse.Object.extend('Phones');
-        const phone = new tmpPhone();
+        // const tmpPhone = Parse.Object.extend('Phones');
+        // const phone = new tmpPhone();
         
-        phone.set('family_id', 1);
-        
-        phone.save().then(
-            (result) => {
+        phoneObj.save().then(function(results) {
                 //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
                 //phone.set('family_id', calcFamilyNum(phone.id));
-                updateFamily(phone.id);
-                async.resolve(phone);
-                $log.info('Phone created', result);
-            },
-            (error) => {
+                async.resolve(results);
+                $log.info('Phone created', results);
+            }, function(error) {
                 //if (typeof document !== 'undefined') document.write(`Error while creating Phone: ${JSON.stringify(error)}`);
                 async.reject(error);
                 $log.error('Error while creating Phone: ', error);

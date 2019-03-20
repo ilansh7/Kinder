@@ -39,6 +39,7 @@
                         <button type="submit" class="btn btn-primary" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary" ng-show="isEmptyLegalGardian" ng-click="createLegalGardian()">Save</button>
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button>
                     </form>
                 </div>
                       
@@ -162,4 +163,5 @@
         <button type="submit" class="btn btn-primary">Sign in</button>
     <!-- </form> -->
     <add-address-modal></add-address-modal>
+    <add-phone-modal></add-phone-modal>
 </div>
