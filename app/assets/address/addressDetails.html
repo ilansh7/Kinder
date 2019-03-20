@@ -5,7 +5,7 @@
         <div class="form-row">
             <div class="col-md-12 pb-2">Address :</div>
             <div style="display: inline-flex;" ng-repeat="address in guardian_addresses">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-3">
                     <!-- <label for="inputAddressType">Type</label> -->
                     <select id="inputAddressType" class="form-control" ng-model="address.type">
                         <option ng-repeat="(id,text) in addressType" value="{{id}}">{{text}}</option>

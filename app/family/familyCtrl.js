@@ -70,19 +70,38 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
 
     $scope.saveAddress = function() {
         $log.info("Button SaveAddress Clicked");
-        let closeModal = document.getElementById("btnDismissAddressModal");
+        //let closeModal = document.getElementById("btnDismissAddressModal");
         //debugger;
-        addressSrv.addAddress(fillAddressPointer()).then(function(person) {
-            closeModal.click();
+        addressSrv.addAddress(fillAddressPointer()).then(function(address) {
+            $scope.guardian_addresses.push(address);
+
+            $scope.addr.type = "";
+            $scope.addr.street = "";
+            $scope.addr.house = "";
+            $scope.addr.neighborhood = "";
+            $scope.addr.city = "";
+            $scope.addr.state = "";
+            $scope.addr.zipcode = "";
+
+            //closeModal.click();
+            $('#addAddressModal').modal('hide');
         });
     }
     
     $scope.savePhone = function() {
         $log.info("Button SavePhone Clicked");
-        let closeModal = document.getElementById("btnDismissPhoneModal");
+        //let closeModal = document.getElementById("btnDismissPhoneModal");
         //debugger;
-        phoneSrv.addPhone(fillPhonePointer()).then(function(person) {
-            closeModal.click();
+        phoneSrv.addPhone(fillPhonePointer()).then(function(phone) {
+            $scope.guardian_phones.push(phone);
+
+            $scope.phone_type = "";
+            $scope.phone_country = "972";
+            $scope.phone_areaCode = "";
+            $scope.phone_number = "";
+
+            //closeModal.click();
+            $('#addPhoneModal').modal('hide');
         });
     }
     
@@ -112,6 +131,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         //$scope.dateOptions.minDate = $scope.inlineOptions.minDate;
     };
 
+    $scope.phone_country = "972";
     $scope.phoneAreaCodes = appUser.phoneAreaCodes;
     $scope.phoneTypes = appUser.phoneTypes;
     $scope.addressType = appUser.addressType;
@@ -176,11 +196,11 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
             else {
                 $scope.isNotEmptyLegalGardianPhones = true;
                 $scope.guardian_phones = phoneResults;
-                for (let i = 0; i < phoneResults.length; i++) {
-                    $scope.guardian_phones[i].phone = (phoneResults[i].country_code !== "972" ? "+" + phoneResults[i].country_code + "-" : "") +
-                        phoneResults[i].area_code + "-" + phoneResults[i].phone_number + 
-                        (phoneResults[i].ext !== undefined ? " Ext " + phoneResults[i].ext : "");
-                }
+                // for (let i = 0; i < phoneResults.length; i++) {
+                //     $scope.guardian_phones[i].phone = (phoneResults[i].country_code !== "972" ? "+" + phoneResults[i].country_code + "-" : "") +
+                //         phoneResults[i].area_code + "-" + phoneResults[i].phone_number + 
+                //         (phoneResults[i].ext !== undefined ? " Ext " + phoneResults[i].ext : "");
+                // }
             }
         });
 
@@ -191,13 +211,13 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
             else {
                 $scope.isNotEmptyLegalGardianAddress = true;
                 $scope.guardian_addresses = addressResults
-                for (let i = 0; i < addressResults.length; i++) {
-                    $scope.guardian_addresses[i].address = addressResults[i].address1 + 
-                    (addressResults[i].house !== undefined ? " " + addressResults[i].house : "") +
-                    (addressResults[i].address2 !== undefined ? ", " + addressResults[i].address2 : "") +
-                    (addressResults[i].city !== undefined ? ", " + addressResults[i].city : "") +
-                    (addressResults[i].zipcode !== undefined ? ", " + addressResults[i].zipcode : "");
-                }
+                // for (let i = 0; i < addressResults.length; i++) {
+                //     $scope.guardian_addresses[i].address = addressResults[i].address1 + 
+                //     (addressResults[i].house !== undefined ? " " + addressResults[i].house : "") +
+                //     (addressResults[i].address2 !== undefined ? ", " + addressResults[i].address2 : "") +
+                //     (addressResults[i].city !== undefined ? ", " + addressResults[i].city : "") +
+                //     (addressResults[i].zipcode !== undefined ? ", " + addressResults[i].zipcode : "");
+                // }
             }
         });
 
@@ -226,15 +246,15 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         personPtr.id = $scope.currFamily.gurdian.objectId;
 
         let addressPtr = new Parse.Object("Address");
-        addressPtr.set('type', $scope.addr_type);
-        addressPtr.set('address1', $scope.addr_street);
+        addressPtr.set('type', $scope.addr.type);
+        addressPtr.set('address1', $scope.addr.street);
         addressPtr.set('address2', undefined);
-        addressPtr.set('city', $scope.addr_city);
-        addressPtr.set('house', $scope.addr_house);
-        addressPtr.set('misc', $scope.addr_neighborhood);
-        addressPtr.set('state', $scope.addr_state);
+        addressPtr.set('city', $scope.addr.city);
+        addressPtr.set('house', $scope.addr.house);
+        addressPtr.set('misc', $scope.addr.neighborhood);
+        addressPtr.set('state', $scope.addr.state);
         addressPtr.set('country', 'Israel');
-        addressPtr.set('zipcode', $scope.addr_zipcode);
+        addressPtr.set('zipcode', $scope.addr.zipcode);
         addressPtr.set('location', undefined);
         addressPtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
         addressPtr.set('object_rel_id', personPtr);        
@@ -247,14 +267,14 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         personPtr.id = $scope.currFamily.gurdian.objectId;
 
         let phonePtr = new Parse.Object("Phones");
+        phonePtr.set('ext', undefined);
+        phonePtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
+        phonePtr.set('object_rel_id', personPtr);  
         phonePtr.set('type', $scope.phone_type);
         phonePtr.set('area_code', $scope.phone_areaCode);
         phonePtr.set('phone_number', $scope.phone_number);
-        phonePtr.set('ext', undefined);
         phonePtr.set('country_code', $scope.phone_country);
-        phonePtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
-        phonePtr.set('object_rel_id', personPtr);  
-        
+
         return phonePtr;
     }
 

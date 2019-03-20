@@ -17,7 +17,11 @@ app.factory("addressSrv", function ($q, $log) {
         this.country = addressObj.get("country");
         this.zipcode = addressObj.get("zipcode");
         this.location = addressObj.get("location");
-        this.address = "";
+        this.address = this.address1 + 
+            (this.house !== undefined ? " " + this.house : "") +
+            (this.address2 !== undefined ? ", " + this.address2 : "") +
+            (this.city !== undefined ? ", " + this.city : "") +
+            (this.zipcode !== undefined ? ", " + this.zipcode : "");
     }
 
     function addAddress(addressObj) {
@@ -25,11 +29,11 @@ app.factory("addressSrv", function ($q, $log) {
         //const tmpAddress = Parse.Object.extend('Address');
         //const address = new tmpAddress();
         
-        addressObj.save().then(function(results) {
+        addressObj.save().then(function(result) {
                 //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
                 //address.set('family_id', calcFamilyNum(address.id));
-                async.resolve(results);
-                $log.info('Address created', results);
+                async.resolve(new Address(result));
+                $log.info('Address created', result);
             }, function(error) {
                 //if (typeof document !== 'undefined') document.write(`Error while creating Address: ${JSON.stringify(error)}`);
                 async.reject(error);

@@ -13,7 +13,7 @@ app.factory("phoneSrv", function ($q, $log) {
         this.area_code = phoneObj.get("area_code");
         this.phone_number = phoneObj.get("phone_number");
         this.ext = phoneObj.get("ext");
-        this.phone = "";
+        this.phone = (this.country_code !== "972" ? "+" + this.country_code + "-" : "") + this.area_code + "-" + this.phone_number + (this.ext !== undefined ? " Ext " + this.ext : "");
     }
 
     function addPhone(phoneObj) {
@@ -21,11 +21,11 @@ app.factory("phoneSrv", function ($q, $log) {
         // const tmpPhone = Parse.Object.extend('Phones');
         // const phone = new tmpPhone();
         
-        phoneObj.save().then(function(results) {
+        phoneObj.save().then(function(result) {
                 //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
                 //phone.set('family_id', calcFamilyNum(phone.id));
-                async.resolve(results);
-                $log.info('Phone created', results);
+                async.resolve(new Phone(result));
+                $log.info('Phone created', result);
             }, function(error) {
                 //if (typeof document !== 'undefined') document.write(`Error while creating Phone: ${JSON.stringify(error)}`);
                 async.reject(error);
@@ -67,8 +67,13 @@ app.factory("phoneSrv", function ($q, $log) {
         return async.promise;
     }
 
+    function convertToObject(phone) {
+        return new Phone(phone);
+    }
+
     return {
         addPhone: addPhone,
         getPhones: getPhones
+        //convertToObject: convertToObject
     }
 })

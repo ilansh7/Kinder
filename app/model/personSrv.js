@@ -86,7 +86,7 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
 
         query.find().then(function(results) {
             if (results.length > 0) {
-                $log.info('getPerson : Person found', JSON.stringify(results));
+                $log.info('getPerson : Person found', results);
                 personObj = new Person(results[0]);
                 personObj.objectId = results[0].id;
                 personObj.object_type = results[0].className;
@@ -117,7 +117,7 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
         query.equalTo("userId", user);
         query.find().then(function(results) {
             if (results.length > 0) {
-                $log.info('getUserData: Person found', JSON.stringify(results));
+                $log.info('getUserData: Person found', results);
                 personObj.first_name = results[0].get("first_name");
                 //personObj = results[0];
             }

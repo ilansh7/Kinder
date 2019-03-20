@@ -54,15 +54,18 @@
                         <span ng-show="isEmptySpause" class="text-danger float-right">
                             <i class="fas fa-plus-circle fa-1x" title="Fill Spause Section"></i>
                         </span>
-                    </uib-accordion-heading>                    
+                    </uib-accordion-heading>
+                    <form name="frmSpause">
+                        <spause-details></spause-details>
                         <!-- <guardian-details></guardian-details>
-                    <address-details></address-details>
-                    <button type="button" class="btn btn-info" ng-click="getData()">Get Data</button>
-                    <phone-details></phone-details> -->
-                    <button type="submit" class="btn btn-primary" ng-hide="isEmptySpause">Update</button>
-                    <button type="submit" class="btn btn-primary" ng-show="isEmptySpause">Save</button>
+                        <address-details></address-details>
+                        <button type="button" class="btn btn-info" ng-click="getData()">Get Data</button>
+                        <phone-details></phone-details> -->
+                        <button type="submit" class="btn btn-primary" ng-hide="isEmptySpause">Update</button>
+                        <button type="submit" class="btn btn-primary" ng-show="isEmptySpause">Save</button>
+                    </form>
                 </div>
-                          
+                            
                 <div uib-accordion-group class="mt-1" heading="{{recipe.name}}" ng-repeat="recipe in recipes" is-open="$first">
                     {{recipe.description}}
                 </div>

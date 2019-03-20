@@ -14,37 +14,37 @@
                     <div class="form-row mr-2 ml-2">
                         <div class="form-group col-md-3">
                             <label for="txtAddressType"><small>Type</small></label>
-                            <!-- <input type="text" class="form-control" id="txtType" ng-model="addr_type" placeholder="Ext"> -->
-                            <select id="txtAddressType" class="form-control form-control-sm" ng-model="addr_type">
+                            <!-- <input type="text" class="form-control" id="txtType" ng-model="addr.type" placeholder="Ext"> -->
+                            <select id="txtAddressType" class="form-control form-control-sm" ng-model="addr.type">
                                 <option ng-repeat="(id,text) in addressType" value="{{id}}">{{text}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="txtStreet"><small>Street</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtStreet" ng-model="addr_street" placeholder="Street Name">
+                            <input type="text" class="form-control form-control-sm" id="txtStreet" ng-model="addr.street" placeholder="Street Name">
                         </div>
                         <div class="form-group col-md-2">
                             <label for="txtHouse"><small>House</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtHouse" ng-model="addr_house" placeholder="House">
+                            <input type="text" class="form-control form-control-sm" id="txtHouse" ng-model="addr.house" placeholder="House">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="txtNeighborhood"><small>Neighborhood</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtNeighborhood" ng-model="addr_neighborhood" placeholder="Neighborhood" required>
+                            <input type="text" class="form-control form-control-sm" id="txtNeighborhood" ng-model="addr.neighborhood" placeholder="Neighborhood" required>
                             <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                     </div>
                     <div class="form-row mr-2 ml-2">
                         <div class="form-group col-md-6">
                             <label for="txtCity"><small>City</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtCity" ng-model="addr_city" placeholder="City">
+                            <input type="text" class="form-control form-control-sm" id="txtCity" ng-model="addr.city" placeholder="City">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="txtState"><small>State</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtState" ng-model="addr_state" placeholder="State">
+                            <input type="text" class="form-control form-control-sm" id="txtState" ng-model="addr.state" placeholder="State">
                         </div>
                         <div class="form-group col-md-3">
                             <label for="txttZip"><small>Zip Code</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtZip" ng-model="addr_zipcode" placeholder="ZipCode">
+                            <input type="text" class="form-control form-control-sm" id="txtZip" ng-model="addr.zipcode" placeholder="ZipCode">
                         </div>
                         
 
