@@ -9,6 +9,8 @@ app.factory("loginSrv", function($q, $log, appUser) {
         this.objectId = parseUser.get("objectId");
         this.email = parseUser.get("email");
         this.family_Obj = parseUser.get("family_id");
+        this.guardian = "";
+        this.spause = "";
     }
 
     function login(email, pwd) {

@@ -6,6 +6,8 @@ app.controller("loginCtrl", function($scope, $rootScope, $location, $log, loginS
     let pwd = "123456"; //recipeBook123";
     email = "a@b.c";
     pwd = "a";
+    email = "abc@def.com";
+    pwd = "a";
     //let modal = 
 
     $scope.login = function() {

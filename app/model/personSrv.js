@@ -30,37 +30,17 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
         return person;
     }
 
-    //function addPerson(family_rel_type, identity_id, first_name, last_name, gender, birthday, userId, family_id, email, type) {
     function addPerson(personObj) {
         let async = $q.defer();
 
-        // const tmpPerson = Parse.Object.extend('Person');
-        // const person = new tmpPerson();
-
-        // //if (typeof(obj) !== 'object') {
-
-        // person.set('type', type);
-        // person.set('identity_id', identity_id);
-        // person.set('birthday', birthday);
-        // person.set('gender', gender);
-        // person.set('family_id', family_id);
-        // person.set('family_rel_type', family_rel_type);
-        // person.set('first_name', first_name);
-        // person.set('last_name', last_name);
-        // person.set('email', email);
-        // person.set('userId', userId);
-        // //}
-        // //else {
-        // //    person = obj;
-        // //}
-
         personObj.save().then(function(result) {
-            //if (typeof document !== 'undefined') document.write(`Person created: ${JSON.stringify(result)}`);
             $log.info('Person created', result);
-            async.resolve(null);
+            //personObj = new Person(result);
+            personObj.objectId = result.id;
+            personObj.object_type = result.className;
+            async.resolve(personObj);
         },
         function(error) {
-            //if (typeof document !== 'undefined') document.write(`Error while creating Person: ${JSON.stringify(error)}`);
             $log.error('Error while creating Person: ', error);
             async.reject(error);
         });

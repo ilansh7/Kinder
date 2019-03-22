@@ -92,3 +92,19 @@ ul.permits-group:after {
   opacity: 0.5;
   background: #CCC;
 }
+
+
+/* Place the HTML 5 spinner at the default position */
+#frmLegalGardian .inputContainer .form-control {
+    padding-right: 10px;
+}
+/* Adjust feedback icon position */
+#frmLegalGardian .inputContainer .form-control-feedback {
+    right: -15px;
+}
+.invalid {
+    border: 1px solid red;
+}
+.invalid-feedback {
+    background-color: lightpink;
+}

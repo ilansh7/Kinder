@@ -1,106 +1,37 @@
-<!-- <div class="container">
-    <form>
-        <div class="form-row">                 -->
-            <div class="personal-data form-group">
-                <!-- <fieldset ng-form="subscriber"> style="border: 1px solid red; background-color: bisque;" -->
-                <!-- <legend>Subscriber Details :</legend> -->
-                <div class="form-row">
-                    <div class="form-group col-md-2">
-                        <label for="txtIdNumber">ID Number</label>
-                        <input type="text" class="form-control" id="txtIdNumber" name="txtIdNumber" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" required>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="txtLastName">Last Name</label>
-                        <input type="text" class="form-control" id="txtLastName" name="txtLastName" ng-model="currFamily.gurdian.last_name" placeholder="Last Name">
-                    </div>
-                    <!-- <abel class="col-md-2 col-form-label text-left"> -->
-                    <div class="form-group col-md-3">
-                        <label for="txtFirstName">First Name</label>
-                        <input type="text" class="form-control" id="txtFirstName" name="txtFirstName" ng-model="currFamily.gurdian.first_name" placeholder="First Name">
-                    </div>
-                    <div class="form-group col-md-3"> <!--  ng-controller="datepickerCtrl" -->
-                        <label for="dtBirthday">Date of Bitrh</label>
-                        <!-- <input type="date" class="form-control" id="dtBirthday" placeholder="Birthday"> -->
-                        <div class="datepicker">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary" id="btnBirthday" name="btnBirthday"ng-click="openDP()">
-                                    <i class="far fa-calendar-alt"></i>
-                                </button>
-                            </span>
-                            <input type="text" class="form-control" id="dtBirthday" name="dtBirthday" uib-datepicker-popup="{{format}}" ng-model="currFamily.gurdian.birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-row" hidden>
-                    <div class="form-group col-md-4">
-                        <label for="txtParentName">Parent Name</label>
-                        <input type="text" class="form-control" id="txtParentName" name="txtParentName" placeholder="Parent Name">
-                    </div>
-                    <!-- <abel class="col-md-2 col-form-label text-left"> -->
-                    <div class="form-group col-md-4">
-                        <label for="txtSpouseName">Spouse Name</label>
-                        <input type="text" class="form-control" id="txtSpouseName" name="txtSpouseName" placeholder="Spouse Name">
-                    </div>
-                </div>
-                <!-- </fieldset> -->
-                <!-- <div class="form-row">
-                    <div class="form-group col-md-7">
-                        <label for="txtStreet">Address</label>
-                        <input type="text" class="form-control" id="txtAddress" ng-model="guardian_address" placeholder="Address">
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="txtCountry">Country</label>
-                        <input type="text" class="form-control" id="txtCountry" ng-model="guardian_country" placeholder="Country">
-                    </div>
-                    <div class="form-group col-md-2">
-                            <label for="inputAddressType">Type</label>
-                            <!-- <input type="text" class="form-control" id="txtAddress" ng-model="guardian_address" placeholder="Address"> -- >
-                            <select id="inputAddressType" class="form-control" ng-model="guardian_address_type">
-                                <option value="FAM">Home</option>
-                                <option value="WORK">Work</option>
-                                <option value="MAIL">Mail</option>
-                            </select>
-                        </div>
-                    </div> -->
-                <!-- <div class="form-row" hidden>
-                    <div class="form-group col-md-4">
-                        <label for="txtStreet">Address</label>
-                        <input type="text" class="form-control" id="txtStreet" ng-model="guardian_street" placeholder="Street Name">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtHouse" ng-model="guardian_house" placeholder="House">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtExt" ng-model="guardian_a" placeholder="Ext">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtNeighborhood" ng-model="guardian_a" placeholder="Neighborhood" required>
-                        <div class="invalid-feedback">Please provide a valid city.</div>
-                    </div>
-                </div> -->
-                <!-- <div class="form-row" hidden>
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity" ng-model="guardian_city">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <input type="text" class="form-control" id="inputState" ng-model="guardian_state">
-                        <select id="inputStateList" class="form-control" hidden>
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip" ng-model="guardian_zipcode">
-                    </div>
-                    <h4>Last name : {{ilans}}</h4>
-                </div> -->
+
+
+<div class="form-row">
+    <div class="personal-data form-group">
+        <!-- <fieldset ng-form="subscriber"> style="border: 1px solid red; background-color: bisque;" -->
+        <!-- <legend>Subscriber Details :</legend> -->
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="txtS_idNumber">ID Number</label>
+                <input ng-show="isEmptySpause" type="text" class="form-control" id="txtS_idNumber" name="txtS_idNumber" ng-model="currFamily.spause.identity_id" placeholder="ID Number" ng-class="{invalid: isValidGuardianIdentityId()}" required>
+                <input ng-hide="isEmptySpause" type="text" class="form-control" id="txtS_idNumber_ro" name="txtS_idNumber_ro" ng-model="currFamily.spause.identity_id" placeholder="ID Number" readonly>
+                <div class="invalid-feedback d-block" ng-show="isValidGuardianIdentityId()">Invalid ID Number.</div>
             </div>
-        <!-- </div>
-    </form>
-</div> -->
+            <div class="form-group col-md-3">
+                <label for="txtS_lastName">Last Name</label>
+                <input type="text" class="form-control" id="txtS_lastName" name="txtS_lastName" ng-model="currFamily.spause.last_name" placeholder="Last Name">
+            </div>
+            <!-- <abel class="col-md-2 col-form-label text-left"> -->
+            <div class="form-group col-md-4">
+                <label for="txtS_firstName">First Name</label>
+                <input type="text" class="form-control" id="txtS_firstName" name="txtS_firstName" ng-model="currFamily.spause.first_name" placeholder="First Name">
+            </div>
+            <div class="form-group col-md-3"> <!--  ng-controller="datepickerCtrl" -->
+                <label for="txtS_birthday">Date of Bitrh</label>
+                <!-- <input type="date" class="form-control" id="txtS_birthday" placeholder="Birthday"> -->
+                <div class="datepicker">
+                    <span class="input-group-btn">
+                        <button type="button" class="btn btn-secondary" id="btnBirthday" name="btnBirthday"ng-click="openDP()">
+                            <i class="far fa-calendar-alt"></i>
+                        </button>
+                    </span>
+                    <input type="text" class="form-control" id="txtS_birthday" name="txtS_birthday" uib-datepicker-popup="{{format}}" ng-model="currFamily.spause.birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

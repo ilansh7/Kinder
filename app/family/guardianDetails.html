@@ -7,9 +7,11 @@
                 <div class="form-row">
                     <div class="form-group col-md-2">
                         <label for="txtG_idNumber">ID Number</label>
-                        <input type="text" class="form-control" id="txtG_idNumber" name="txtG_idNumber" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" required>
+                        <input ng-show="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber" name="txtG_idNumber" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" ng-class="{invalid: isValidGuardianIdentityId()}" required>
+                        <input ng-hide="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber_ro" name="txtG_idNumber_ro" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" readonly>
+                        <div class="invalid-feedback d-block" ng-show="isValidGuardianIdentityId()">Invalid ID Number.</div>
                     </div>
-                    <div class="form-group col-md-4">
+                    <div class="form-group col-md-3">
                         <label for="txtG_lastName">Last Name</label>
                         <input type="text" class="form-control" id="txtG_lastName" name="txtG_lastName" ng-model="currFamily.gurdian.last_name" placeholder="Last Name">
                     </div>
@@ -18,7 +20,7 @@
                         <label for="txtG_firstName">First Name</label>
                         <input type="text" class="form-control" id="txtG_firstName" name="txtG_firstName" ng-model="currFamily.gurdian.first_name" placeholder="First Name">
                     </div>
-                    <div class="form-group col-md-2"> <!--  ng-controller="datepickerCtrl" -->
+                    <div class="form-group col-md-3"> <!--  ng-controller="datepickerCtrl" -->
                         <label for="txtG_birthday">Date of Bitrh</label>
                         <!-- <input type="date" class="form-control" id="txtG_birthday" placeholder="Birthday"> -->
                         <div class="datepicker">

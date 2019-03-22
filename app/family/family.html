@@ -34,19 +34,29 @@
                     </uib-accordion-heading>                    
                     <form name="frmLegalGardian">
                         <guardian-details></guardian-details>
-                        <address-details ng-show="hideLegalGardianAddress()"></address-details>
+                        <div ng-hide="isEmptyLegalGardian">
+                            <div ng-hide="hideLegalGardianAddress()">
+                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
+                            </div>
+                        </div>
+                        <address-details person-type="G" ng-show="hideLegalGardianAddress()"></address-details>
+                        <div ng-hide="isEmptyLegalGardian">
+                            <div class="pt-2" ng-hide="hideLegalGardianPhones()">
+                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
+                            </div>
+                        </div>
                         <phone-details ng-show="hideLegalGardianPhones()"></phone-details>
-                        <button type="submit" class="btn btn-primary" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
-                        <button type="submit" class="btn btn-primary" ng-show="isEmptyLegalGardian" ng-click="createLegalGardian()">Save</button>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptyLegalGardian" ng-click="createFamilyMember('G')" onsubmit="return externalValidate()">Save</button>
+                        <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
+                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button> -->
                     </form>
                 </div>
                       
                 <div uib-accordion-group class="panel-default" heading="Spause details">
                     <uib-accordion-heading>Spause details &nbsp;&nbsp;&nbsp;&nbsp;
                         <span ng-hide="isEmptySpause" class="text-warning float-right">
-                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Legal Guardian Section"></i>
+                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Spause Section"></i>
                         </span>
                         <span ng-hide="isEmptySpause" class="text-success float-right">
                             <i class="fas fa-check-circle fa-1x" title="Spause Section is Filled"></i>
@@ -57,12 +67,20 @@
                     </uib-accordion-heading>
                     <form name="frmSpause">
                         <spause-details></spause-details>
-                        <!-- <guardian-details></guardian-details>
-                        <address-details></address-details>
-                        <button type="button" class="btn btn-info" ng-click="getData()">Get Data</button>
-                        <phone-details></phone-details> -->
-                        <button type="submit" class="btn btn-primary" ng-hide="isEmptySpause">Update</button>
-                        <button type="submit" class="btn btn-primary" ng-show="isEmptySpause">Save</button>
+                        <div ng-hide="isEmptySpause">
+                            <div ng-hide="hideLegalGardianAddress()">
+                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
+                            </div>
+                        </div>
+                        <address-details person-type="S" ng-show="hideLegalGardianAddress()"></address-details>
+                        <div ng-hide="isEmptySpause">
+                            <div class="pt-2" ng-hide="hideLegalGardianPhones()">
+                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
+                            </div>
+                        </div>
+                        <phone-details ng-show="hideLegalGardianPhones()"></phone-details>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptySpause" ng-click="createFamilyMember('S')" onsubmit="return externalValidate()">Save</button>
                     </form>
                 </div>
                             
