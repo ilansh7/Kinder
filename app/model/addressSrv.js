@@ -3,6 +3,7 @@
 app.factory("addressSrv", function ($q, $log) {
 
     const appFamily = null;
+    let addressObj = null;
 
     function Address(addressObj) {
         this.type = addressObj.get("type");
@@ -22,6 +23,7 @@ app.factory("addressSrv", function ($q, $log) {
             (this.address2 !== undefined ? ", " + this.address2 : "") +
             (this.city !== undefined ? ", " + this.city : "") +
             (this.zipcode !== undefined ? ", " + this.zipcode : "");
+        this.person_id = "";
     }
 
     function addAddress(addressObj) {
@@ -62,7 +64,10 @@ app.factory("addressSrv", function ($q, $log) {
                 $log.info('Address found', results);
                 //addressObj = new Address(results);
                 for (let i = 0; i < results.length; i++) {
-                    addresses.push(new Address(results[i]));                    
+                    addressObj = new Address(results[i]);
+                    addressObj.person_od = addressObj.object_rel_id.id;
+                    addresses.push(addressObj);
+                    addressObj = null;                    
                 }
             }
             else {

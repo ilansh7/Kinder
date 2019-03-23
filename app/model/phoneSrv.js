@@ -3,6 +3,7 @@
 app.factory("phoneSrv", function ($q, $log) {
 
     const appFamily = null;
+    let phoneObj = null;
 
     function Phone(phoneObj) {
         this.type = phoneObj.get("type");
@@ -42,18 +43,28 @@ app.factory("phoneSrv", function ($q, $log) {
         
         //const phoneObj = new Phone();
         let phones = [];
-        let pp = [];
 
-        var personPtr = new Parse.Object("Person");
-        personPtr.id = objId;
-        query.equalTo("object_rel_id", personPtr);
-        query.equalTo("object_rel_type", objType);
+        if (objId) {
+            var personPtr = new Parse.Object("Person");
+            personPtr.id = objId;
+            query.equalTo("object_rel_id", personPtr);
+            }
+        if (objType) {
+            query.equalTo("object_rel_type", objType);
+        }
+        if (type) {
+            query.equalTo("type", type);
+        }
 
         query.find().then(function(results) {
             if (results.length > 0) {
                 $log.info('Phone found', results);
                 for (let i = 0; i < results.length; i++) {
-                    phones.push(new Phone(results[i]));                    
+                    phoneObj = new Phone(results[i]);
+                    phoneObj.person_id = phoneObj.object_rel_id.id;
+                    //phones.push(new Phone(results[i]));                    
+                    phones.push(phoneObj);                    
+                    phoneObj = null;
                 }
             }
             else {

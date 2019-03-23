@@ -1,27 +1,29 @@
 
 
-app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, familySrv*/) {
+app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, familySrv*/) {
 
     let personObj = null;
+    let personArr = [];
 
-    function Person(parsePerson) {
-        if (parsePerson) {
-            //this.objectId = parsePerson[0].get("objectId");
+    function Person(personObj) {
+        if (personObj) {
+            //this.objectId = personObj[0].get("objectId");
             this.object_type = "";
-            this.identity_id = parsePerson.get("identity_id");
-            this.birthday = parsePerson.get("birthday");
-            this.family_id = parsePerson.get("family_id");
-            this.gender = parsePerson.get("gender");
-            this.first_name = parsePerson.get("first_name");
-            this.last_name = parsePerson.get("last_name");
-            this.email = parsePerson.get("email");
-            this.user_id = parsePerson.get("user_id");
-            this.type = parsePerson.get("type");
+            this.family_rel_type = personObj.get("family_rel_type");
+            this.identity_id = personObj.get("identity_id");
+            this.birthday = personObj.get("birthday");
+            this.family_id = personObj.get("family_id");
+            this.gender = personObj.get("gender");
+            this.first_name = personObj.get("first_name");
+            this.last_name = personObj.get("last_name");
+            this.email = personObj.get("email");
+            this.user_id = personObj.get("user_id");
+            this.type = personObj.get("type");
         }
-        this.homeAddress = {
-            address1 : "",
-            address2 : ""
-        };
+        // this.homeAddress = {
+        //     address1 : "",
+        //     address2 : ""
+        // };
     }
 
     function newPerson(id) {
@@ -35,10 +37,14 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
 
         personObj.save().then(function(result) {
             $log.info('Person created', result);
-            //personObj = new Person(result);
+
+            personObj = new Person(result);
             personObj.objectId = result.id;
             personObj.object_type = result.className;
+            personArr.push(personObj);
+
             async.resolve(personObj);
+            personObj = null;
         },
         function(error) {
             $log.error('Error while creating Person: ', error);
@@ -67,20 +73,53 @@ app.factory("personSrv", function($q, $log, appUser, addressSrv/*, loginSrv, fam
         query.find().then(function(results) {
             if (results.length > 0) {
                 $log.info('getPerson : Person found', results);
-                personObj = new Person(results[0]);
-                personObj.objectId = results[0].id;
-                personObj.object_type = results[0].className;
+                personArr = [];
+                for (let i = 0; i < results.length; i++) {
+                    personObj = new Person(results[i]);
+                    personObj.objectId = results[i].id;
+                    personObj.object_type = results[i].className;
+                    personArr.push(personObj);
+                    personObj = null;
+                }
             }
             else {
+                personArr = [];
                 $log.info('Person : No data found');
             }
-            async.resolve(personObj);
+            // const uniques = Array.from(new Set(personArr.map(s => s.objectId)))
+            // .map(objectId => {
+            //     return {
+            //         objectId: objectId,
+            //         object_type: personArr.find(s => s.objectId === objectId).object_type,
+            //         identity_id: personArr.find(s => s.objectId === objectId).identity_id,
+            //         family_id: personArr.find(s => s.objectId === objectId).family_id,
+            //         family_rel_type: personArr.find(s => s.objectId === objectId).family_rel_type,
+            //         first_name: personArr.find(s => s.objectId === objectId).first_name,
+            //         last_name: personArr.find(s => s.objectId === objectId).last_name,
+            //         birthday: personArr.find(s => s.objectId === objectId).birthday,
+            //         email: personArr.find(s => s.objectId === objectId).email,
+            //         gender: personArr.find(s => s.objectId === objectId).gender,
+            //         type: personArr.find(s => s.objectId === objectId).type,
+            //         user_id: personArr.find(s => s.objectId === objectId).user_id
+            //     };
+            // });
+            async.resolve(personArr);
         }, function(error) {
-            async.reject(error);async.reject(error);
+            async.reject(error);
             $log.error('Error while fetching Person', error);
         });
         return async.promise;
     }
+
+    // Array.prototype.unique = function() {
+    //     var arr = [];
+    //     for(var i = 0; i < this.length; i++) {
+    //         if(!arr.includes(this[i])) {
+    //             arr.push(this[i]);
+    //         }
+    //     }
+    //     return arr; 
+    // }
 
     function getUserData(user) {
         let async = $q.defer();

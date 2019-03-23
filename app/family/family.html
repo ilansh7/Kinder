@@ -1,19 +1,6 @@
 <kinder-navbar></kinder-navbar>
 <div class="container mt-5">
-    <h1>{{activeUser.first_name}}'s User Data</h1>
-    <h4>UserId : {{currFamily.objectId}}, FamilyId : {{currFamily.family.id}}, FamilyNum : {{currFamily.familyNum}}, Person : {{currFamily.gurdian.objectId}}</h4>
-
-    <!-- <div class="row">
-        <div class="col-sm-6 col-md-4 my-2" ng-repeat="recipe in recipes">
-            <div class="card recipe-card">
-                <img class="card-img-top" ng-src="{{recipe.imgUrl}}" alt="">
-                <div class="card-body">
-                    <h4 class="card-title">{{recipe.name}}</h4>
-                    <p class="card-text">{{recipe.description}}</p>
-                </div>
-            </div>
-        </div>
-    </div> -->
+    <h1>{{currFamily.guardianName}}'s User Data</h1>
 </div>
 
 <div class="container">
@@ -39,13 +26,13 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-type="G" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="{{currFamily.gurdian.objectId}}" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptyLegalGardian">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
                             </div>
                         </div>
-                        <phone-details ng-show="hideLegalGardianPhones()"></phone-details>
+                        <phone-details person-id="{{currFamily.gurdian.objectId}}" ng-show="hideLegalGardianPhones()"></phone-details>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptyLegalGardian" ng-click="createFamilyMember('G')" onsubmit="return externalValidate()">Save</button>
                         <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
@@ -72,19 +59,19 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-type="S" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="{{currFamily.spause.objectId}}" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptySpause">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
                             </div>
                         </div>
-                        <phone-details ng-show="hideLegalGardianPhones()"></phone-details>
+                        <phone-details person-id="{{currFamily.spause.objectId}}" ng-show="hideLegalGardianPhones()"></phone-details>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptySpause" ng-click="createFamilyMember('S')" onsubmit="return externalValidate()">Save</button>
                     </form>
                 </div>
                             
-                <div uib-accordion-group class="mt-1" heading="{{recipe.name}}" ng-repeat="recipe in recipes" is-open="$first">
+                <div uib-accordion-group class="mt-1" heading="recipe.name"> <!--ng-repeat="recipe in recipes" is-open="$first">-->
                     {{recipe.description}}
                 </div>
             </uib-accordion>

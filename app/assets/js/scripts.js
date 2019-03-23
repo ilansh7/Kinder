@@ -3,24 +3,22 @@
 // });
 
 function LegalTz(num) {
-        let tot = 0;
-        let tz = new String(num);
-        for (i=0; i<8; i++)
-            {
-                x = (((i%2)+1)*tz.charAt(i));
-                if (x > 9) 
-                    {
-                    x =x.toString();
-                    x=parseInt(x.charAt(0))+parseInt(x.charAt(1))
-                    }
-            tot += x;
-            }
+    return true;
+    let tot = 0;
+    let tz = new String(num);
+    for (i=0; i<8; i++) {
+        x = (((i%2)+1)*tz.charAt(i));
+        if (x > 9) {
+            x = x.toString();
+            x = parseInt(x.charAt(0)) + parseInt(x.charAt(1));
+        }
+        tot += x;
+    }
         
-    if ((tot+parseInt(tz.charAt(8)))%10 == 0) {
+    if ((tot + parseInt(tz.charAt(8))) % 10 == 0) {
         //alert("תקין");
         return true;
     } else {
-         
         alert("לא תקין")
         return false;
     }

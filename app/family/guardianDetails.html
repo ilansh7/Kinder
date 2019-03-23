@@ -4,32 +4,60 @@
             <div class="personal-data form-group">
                 <!-- <fieldset ng-form="subscriber"> style="border: 1px solid red; background-color: bisque;" -->
                 <!-- <legend>Subscriber Details :</legend> -->
-                <div class="form-row">
+                <div class="form-row" ng-show="isEmptyLegalGardian">
                     <div class="form-group col-md-2">
                         <label for="txtG_idNumber">ID Number</label>
-                        <input ng-show="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber" name="txtG_idNumber" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" ng-class="{invalid: isValidGuardianIdentityId()}" required>
-                        <input ng-hide="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber_ro" name="txtG_idNumber_ro" ng-model="currFamily.gurdian.identity_id" placeholder="ID Number" readonly>
+                        <input type="text" class="form-control" id="txtG_idNumber" name="txtG_idNumber" ng-model="person.identity_id" placeholder="ID Number" ng-class="{invalid: isValidGuardianIdentityId()}" required>
                         <div class="invalid-feedback d-block" ng-show="isValidGuardianIdentityId()">Invalid ID Number.</div>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="txtG_lastName">Last Name</label>
-                        <input type="text" class="form-control" id="txtG_lastName" name="txtG_lastName" ng-model="currFamily.gurdian.last_name" placeholder="Last Name">
+                        <input type="text" class="form-control" id="txtG_lastName" name="txtG_lastName" ng-model="person.last_name" placeholder="Last Name">
                     </div>
                     <!-- <abel class="col-md-2 col-form-label text-left"> -->
                     <div class="form-group col-md-4">
                         <label for="txtG_firstName">First Name</label>
-                        <input type="text" class="form-control" id="txtG_firstName" name="txtG_firstName" ng-model="currFamily.gurdian.first_name" placeholder="First Name">
+                        <input type="text" class="form-control" id="txtG_firstName" name="txtG_firstName" ng-model="person.first_name" placeholder="First Name">
                     </div>
                     <div class="form-group col-md-3"> <!--  ng-controller="datepickerCtrl" -->
                         <label for="txtG_birthday">Date of Bitrh</label>
-                        <!-- <input type="date" class="form-control" id="txtG_birthday" placeholder="Birthday"> -->
+                        <!-- <input type="date" class="form-control" id="txtG_birthday" ng-model="person.birthday" format="dd/MM/yyyy" placeholder="Birthday"> -->
                         <div class="datepicker">
                             <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary" id="btnBirthday" name="btnBirthday"ng-click="openDP()">
+                                <button type="button" class="btn btn-secondary" id="btnGBirthday" name="btnBirthday"ng-click="openDP()">
                                     <i class="far fa-calendar-alt"></i>
                                 </button>
                             </span>
-                            <input type="text" class="form-control" id="txtG_birthday" name="txtG_birthday" uib-datepicker-popup="{{format}}" ng-model="currFamily.gurdian.birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
+                            <input type="text" class="form-control" id="txtG_birthday" name="txtG_birthday" uib-datepicker-popup="{{format}}" ng-model="person.birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row" ng-repeat="person in personsArr | personByType : familyRelation.familyHead" condition="$first">
+                    <div class="form-group col-md-2">
+                        <label for="txtG_idNumber">ID Number</label>
+                        <input ng-show="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber" name="txtG_idNumber" ng-model="person.identity_id" placeholder="ID Number" ng-class="{invalid: isValidGuardianIdentityId()}" required>
+                        <input ng-hide="isEmptyLegalGardian" type="text" class="form-control" id="txtG_idNumber_ro" name="txtG_idNumber_ro" ng-model="person.identity_id" placeholder="ID Number" readonly> <!-- currFamily.gurdian.identity_id" -->
+                        <div class="invalid-feedback d-block" ng-show="isValidGuardianIdentityId()">Invalid ID Number.</div>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="txtG_lastName">Last Name</label>
+                        <input type="text" class="form-control" id="txtG_lastName" name="txtG_lastName" ng-model="person.last_name" placeholder="Last Name">
+                    </div>
+                    <!-- <abel class="col-md-2 col-form-label text-left"> -->
+                    <div class="form-group col-md-4">
+                        <label for="txtG_firstName">First Name</label>
+                        <input type="text" class="form-control" id="txtG_firstName" name="txtG_firstName" ng-model="person.first_name" placeholder="First Name">
+                    </div>
+                    <div class="form-group col-md-3"> <!--  ng-controller="datepickerCtrl" -->
+                        <label for="txtG_birthday">Date of Bitrh</label>
+                        <!-- <input type="date" class="form-control" id="txtG_birthday" ng-model="person.birthday" format="dd/MM/yyyy" placeholder="Birthday"> -->
+                        <div class="datepicker">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-secondary" id="btnGrepBirthday" name="btnBirthday"ng-click="openDP()">
+                                    <i class="far fa-calendar-alt"></i>
+                                </button>
+                            </span>
+                            <input type="text" class="form-control" id="txtG_birthday" name="txtG_birthday" uib-datepicker-popup="{{format}}" ng-model="person.birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
                         </div>
                     </div>
                 </div>

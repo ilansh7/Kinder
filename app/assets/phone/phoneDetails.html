@@ -5,8 +5,8 @@
     <div class="personal-data form-group">
         <!-- </fieldset> ng-show="{{guardian_phones.length > 0}}"-->
         <div class="form-row">
-            <div class="col-md-12 pb-3">Phones :<i class="text-success fas fa-phone-square fa-2x pl-3" title="Add New Phone" data-toggle="modal" data-target="#addPhoneModal"></i></div>
-            <div style="display: inline-flex;" class="col-md-6" ng-repeat="phone in guardian_phones">
+            <div class="col-md-12 pb-3">Phones :<i class="text-success fas fa-phone-square fa-2x pl-3" title="Add New Phone" data-toggle="modal" data-target="#addPhoneModal"></i>**{{personId}}**</div>
+            <div style="display: inline-flex;" class="col-md-6" ng-repeat="phone in phonesArr | phoneByPerson : personId" condition="$first">
                 <div class="form-group col-md-5">
                     <!-- <label for="inputPhoneType">Phone</label> -->
                     <!-- <input type="text" class="form-control" id="txtAddress" ng-model="guardian_address" placeholder="Address"> -->
