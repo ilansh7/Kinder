@@ -65,7 +65,7 @@ app.factory("addressSrv", function ($q, $log) {
                 //addressObj = new Address(results);
                 for (let i = 0; i < results.length; i++) {
                     addressObj = new Address(results[i]);
-                    addressObj.person_od = addressObj.object_rel_id.id;
+                    addressObj.person_id = addressObj.object_rel_id.id;
                     addresses.push(addressObj);
                     addressObj = null;                    
                 }

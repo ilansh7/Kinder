@@ -50,6 +50,7 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
             $log.error('Error while creating Person: ', error);
             async.reject(error);
         });
+        return async.promise;
     }
 
     function getPerson(account) {

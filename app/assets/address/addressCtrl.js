@@ -7,6 +7,11 @@ app.controller("addressCtrl", function($scope, $log, appUser, addressSrv) {
     let address_objct_type = "";
     $scope.addresses = [];
     $scope.addressType = appUser.lists[0];
+    $scope.currFamily = appUser.activeFamily;
+    $scope.familyRelation = appUser.lists[3];
+
+    $scope.personId = $scope.currFamily.spause.objectId;
+    $scope.personType = $scope.familyRelation.spause;
 
     //sleep(2500);
     if ($scope.personType === "S") {
@@ -19,16 +24,17 @@ app.controller("addressCtrl", function($scope, $log, appUser, addressSrv) {
     }
 
     if ($scope.personType) {
-    addressSrv.getAddress(address_objct_id, address_objct_type, 0).then(function(addressResults) {
-        if (!addressResults) {
-            //return;
-        }
-        else {
-            $scope.isNotEmptyLegalGardianAddress = true;
-            $scope.addresses = addressResults
-            //$scope.guardian_addresses = addressResults;
-        }
-    });
+        addressSrv.getAddress($scope.currFamily.gurdian.objectId, $scope.currFamily.gurdian.object_type, 0).then(function(addressResults) {
+            if (!addressResults) {
+                //return;
+            }
+            else {
+                if (addressResults.length > 0) {
+                    $scope.isNotEmptyLegalGardianAddress = true;
+                }
+                $scope.guardian_addresses = addressResults
+            }
+        });
     }
 
     $scope.saveAddress = function() {

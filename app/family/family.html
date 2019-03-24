@@ -26,7 +26,7 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-id="{{currFamily.gurdian.objectId}}" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="currFamily.gurdian.objectId" person-type="familyRelation.familyHead" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptyLegalGardian">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
@@ -59,7 +59,7 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-id="{{currFamily.spause.objectId}}" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="currFamily.spause.objectId" person-type="familyRelation.spause" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptySpause">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>

@@ -3,8 +3,8 @@
     <div class="personal-data form-group">
         <!-- </fieldset> -->
         <div class="form-row">
-            <div class="col-md-12 pb-3">Address :<i class="text-success fas fa-address-book fa-2x pl-3" title="Add New Address" data-toggle="modal" data-target="#addAddressModal"></i>**{{personId}}**</div>
-            <div style="display: inline-flex;" ng-repeat="address in guardian_addresses | addressByPerson : personId">
+            <div class="col-md-12 pb-3">Address :<i class="text-success fas fa-address-book fa-2x pl-3" title="Add New Address" data-toggle="modal" data-target="#addAddressModal"></i>**{{personId}} {{personType}}**</div>
+            <div style="display: inline-flex;" ng-repeat="address in addressesArr | addressByPerson : personId">
                 <div class="form-group col-md-3">
                     <!-- <label for="inputAddressType">Type</label> -->
                     <select id="inputAddressType" class="form-control" ng-model="address.type">

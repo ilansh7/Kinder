@@ -31,6 +31,16 @@ app.config(function($routeProvider) {
 app.service('appUser', function($q, $log) {
     //this.ilan = "Shchori";
     this.activeUser = {};
+    this.activeFamily = {
+        activeUser : null,
+        //userId : "",
+        family : null,
+        familyId : "",
+        familyNum : "",
+        guardianName : "",
+        gurdian : {},
+        spause : {}
+    };
     this.codes = {
         // Address Type
         Home            : "H",

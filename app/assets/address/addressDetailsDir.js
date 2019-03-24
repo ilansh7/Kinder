@@ -4,9 +4,10 @@ app.directive("addressDetails", function() {
     return {
         templateUrl: "app/assets/address/addressDetails.html",
         restrcit: "E",
-        // controller: "addressCtrl",
+        controller: "familyCtrl",
         scope: {
-            personId: "@"
+            personId: "=",
+            personType: "="
         }
     }
 })

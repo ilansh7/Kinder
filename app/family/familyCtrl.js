@@ -2,34 +2,93 @@
 
 app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv, personSrv, familySrv, addressSrv, phoneSrv) {
 
-    $scope.currFamily = {
-        activeUser : null,
-        //userId : "",
-        family : null,
-        familyId : "",
-        familyNum : "",
-        guardianName : "",
-        gurdian : {},
-        spause : {}
-    }
+    // $scope.currFamily = {
+    //     activeUser : null,
+    //     //userId : "",
+    //     family : null,
+    //     familyId : "",
+    //     familyNum : "",
+    //     guardianName : "",
+    //     gurdian : {},
+    //     spause : {}
+    // };
+    $scope.currFamily = appUser.activeFamily;
     $scope.newPersonObj = {
         family_rel_type : "",
         identity_id: "",
         last_name : "",
         first_name : "",
         birthday : ""
-    }
+    };
     $scope.familyRelation = appUser.lists[3];
     $scope.invalid_gurdian_identity_id = false;
 
     if (!loginSrv.isLoggedIn()) {
         $location.path("/");
         return;
-    }
+    };
 
-    if (!$scope.currFamily.activeUser) {
-        $scope.currFamily.activeUser = loginSrv.getActiveUser();
-    }
+    if (!appUser.activeFamily.activeUser) {
+        appUser.activeFamily.activeUser = loginSrv.getActiveUser();
+    };
+
+    //$scope.personId = $scope.currFamily.spause.objectId;
+    //$scope.personType = $scope.familyRelation.spause;
+
+    $scope.init = function() {
+        $scope.currFamily = appUser.activeFamily;
+        // get persons
+        let personType = {
+            family_Obj : appUser.activeFamily.family.id,
+            family_rel_type : undefined // Fetch all person's family  // appUser.lists[3].familyHead // familyRelation
+        }        
+
+        personSrv.getPerson(personType).then(function(results) {
+            //debugger;
+            if (!results || results.length <= 0) {
+                return;
+            }
+
+            $scope.personsArr = results;
+            $scope.personsArr.forEach(function(element) {
+                if (element.family_rel_type == $scope.familyRelation.familyHead) {
+                    $scope.isEmptyLegalGardian = false;
+                    appUser.activeFamily.gurdian = element;
+                    appUser.activeFamily.guardianName = element.first_name + " " + element.last_name;
+                    appUser.activeUser.gurdian = results.objectId;
+                }
+                if (element.family_rel_type == $scope.familyRelation.spause) {
+                    appUser.activeFamily.spause = element;
+                    $scope.isEmptySpause = false;
+                }
+            });
+
+            phoneSrv.getPhones(undefined, appUser.codes.guardian_object_type, undefined).then(function(phoneResults) {
+                if (!phoneResults) {
+                    //return;
+                }
+                else {
+                    if (phoneResults.length > 0) {
+                        $scope.isNotEmptyLegalGardianPhones = true;
+                    }
+                    $scope.phonesArr = phoneResults;
+                }
+            });
+
+            addressSrv.getAddress(appUser.activeFamily.gurdian.objectId, appUser.activeFamily.gurdian.object_type, 0).then(function(addressResults) {
+                if (!addressResults) {
+                    //return;
+                }
+                else {
+                    if (addressResults.length > 0) {
+                        $scope.isNotEmptyLegalGardianAddress = true;
+                    }
+                    $scope.addressesArr = addressResults
+                }
+            });
+
+        });
+    };
 
     $scope.createFamilyMember = function(type) {
         let identityId = undefined;
@@ -37,14 +96,14 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         $scope.newPersonObj.family_rel_type = type;
 
         if (type === "G") { // Guardian
-            if ($scope.currFamily.gurdian) {
-                identityId = $scope.currFamily.gurdian.identity_id;
+            if (appUser.activeFamily.gurdian) {
+                identityId = appUser.activeFamily.gurdian.identity_id;
             }
             //familyRelationType = $scope.familyRelation.familyHead; //appUser.lists[3].familyHead;
         }
         if (type === "S") { // Spause
-            if ($scope.currFamily.spause) {
-                identityId = $scope.currFamily.spause.identity_id;
+            if (appUser.activeFamily.spause) {
+                identityId = appUser.activeFamily.spause.identity_id;
             }
             //familyRelationType = $scope.familyRelation.spause; // appUser.lists[3].spause;
         }
@@ -54,10 +113,10 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         }
         $log.info("Button Create Legal Gardian clicked");
         // add Family object
-        if ($scope.currFamily.family) {
+        if (appUser.activeFamily.family) {
             // Family object found
             let personType = {
-                family_Obj : $scope.currFamily.family.id,
+                family_Obj : appUser.activeFamily.family.id,
                 family_rel_type : familyRelationType
             }        
         
@@ -80,9 +139,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         }
         else {
             familySrv.addFamily().then(function(family) {
-                $scope.currFamily.familyId = family.objectId;
-                //$scope.currFamily.family = appUser.activeUser.family_Obj;
-                //$scope.currFamily.familyNum = familySrv.calcFamilyNum($scope.currFamily.family.id);
+                appUser.activeFamily.familyId = family.objectId;
                 
                 appUser.getObject(family.objectId, "Family").then(function(familyObj) {
 
@@ -97,8 +154,8 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
                         //sleep(3000);
                         // create head of familt class
                         personSrv.addPerson(fillPersonPointer()).then(function(person) {
-                            $scope.currFamily.familyNum = person.familyNum;
-                            $scope.currFamily.gurdian = person;
+                            appUser.activeFamily.familyNum = person.familyNum;
+                            appUser.activeFamily.gurdian = person;
                             appUser.activeUser.gurdian = person.objectId;
                             if (type === "G") { // Spause
                                 appUser.activeUser.gurdian = person.objectId;
@@ -120,7 +177,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         //let closeModal = document.getElementById("btnDismissAddressModal");
         //debugger;
         addressSrv.addAddress(fillAddressPointer()).then(function(address) {
-            $scope.guardian_addresses.push(address);
+            $scope.phonesArr.push(address);
 
             $scope.addr.type = "";
             $scope.addr.street = "";
@@ -140,7 +197,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         //let closeModal = document.getElementById("btnDismissPhoneModal");
         //debugger;
         phoneSrv.addPhone(fillPhonePointer()).then(function(phone) {
-            $scope.guardian_phones.push(phone);
+            $scope.phonesArr.push(phone);
 
             $scope.phone_type = "";
             $scope.phone_country = "972";
@@ -196,8 +253,8 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         return $scope.isNotEmptyLegalGardianAddress;
     }
 
-    $scope.currFamily.family = appUser.activeUser.family_Obj;
-    if (!$scope.currFamily.family) {
+    appUser.activeFamily.family = appUser.activeUser.family_Obj;
+    if (!appUser.activeFamily.family) {
         return;
     }
 
@@ -205,115 +262,8 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         return $scope.invalid_gurdian_identity_id;
     }
     
-
-    // get Legal Guardian details
-    let personType = {
-        family_Obj : $scope.currFamily.family.id,
-        family_rel_type : undefined // Fetch all person's family  // appUser.lists[3].familyHead // familyRelation
-    }        
-
-    personSrv.getPerson(personType).then(function(results) {
-        //debugger;
-        if (!results || results.length <= 0) {
-            return;
-        }
-        //$scope.currFamily.gurdian.objectId
-        // $scope.currFamily.familyNum = results.familyNum;
-        // $scope.currFamily.gurdian = results;
-        // appUser.activeUser.gurdian = results.objectId;
-
-        $scope.personsArr = results;
-        $scope.personsArr.forEach(function(element) {
-            if (element.family_rel_type == $scope.familyRelation.familyHead) {
-                $scope.isEmptyLegalGardian = false;
-                $scope.currFamily.gurdian = element;
-                $scope.currFamily.guardianName = element.first_name + " " + element.last_name;
-                appUser.activeUser.gurdian = results.objectId;
-            }
-            if (element.family_rel_type == $scope.familyRelation.spause) {
-                $scope.currFamily.spause = element;
-                $scope.isEmptySpause = false;
-            }
-        });
-
-        // var multiplePersons = [];
-        // const gPersonPtr = new Parse.Object("Person");
-        // gPersonPtr.id = $scope.currFamily.gurdian.objectId;
-        // multiplePersons.push(gPersonPtr);
-        // const gSersonPtr = new Parse.Object("Person");
-        // gSersonPtr.id = $scope.currFamily.spause.objectId;
-        // multiplePersons.push(gSersonPtr);
-
-        phoneSrv.getPhones(undefined, appUser.codes.guardian_object_type, undefined).then(function(phoneResults) {
-            if (!phoneResults) {
-                //return;
-            }
-            else {
-                if (phoneResults.length > 0) {
-                    $scope.isNotEmptyLegalGardianPhones = true;
-                }
-                $scope.phonesArr = phoneResults;
-            }
-        });
-
-        addressSrv.getAddress($scope.currFamily.gurdian.objectId, $scope.currFamily.gurdian.object_type, 0).then(function(addressResults) {
-            if (!addressResults) {
-                //return;
-            }
-            else {
-                if (addressResults.length > 0) {
-                    $scope.isNotEmptyLegalGardianAddress = true;
-                }
-                $scope.guardian_addresses = addressResults
-            }
-        });
-
-    });
-
-    // // get Spause details
-    // personType = {
-    //     family_Obj : $scope.currFamily.family.id,
-    //     family_rel_type : appUser.lists[3].spause // familyRelation
-    // }        
-
-    // personSrv.getPerson(personType).then(function(results) {
-    //     //debugger;
-    //     if (!results) {
-    //         return;
-    //     }
-    //     //$scope.currFamily.gurdian.objectId
-    //     $scope.currFamily.familyNum = results.familyNum;
-    //     $scope.currFamily.gurdian = results;
-    //     appUser.activeUser.gurdian = results.objectId;
-
-    //     $scope.isEmptySpause = false;
-
-    //     phoneSrv.getPhones($scope.currFamily.gurdian.objectId, $scope.currFamily.gurdian.object_type, 0).then(function(phoneResults) {
-    //         if (!phoneResults) {
-    //             //return;
-    //         }
-    //         else {
-    //             if (phoneResults.length > 0) {
-    //                 $scope.isNotEmptyLegalGardianPhones = true;
-    //             }
-    //             $scope.guardian_phones = phoneResults;
-    //         }
-    //     });
-
-    //     addressSrv.getAddress($scope.currFamily.gurdian.objectId, $scope.currFamily.gurdian.object_type, 0).then(function(addressResults) {
-    //         if (!addressResults) {
-    //             //return;
-    //         }
-    //         else {
-    //             if (addressResults.length > 0) {
-    //                 $scope.isNotEmptyLegalGardianAddress = true;
-    //             }
-    //             $scope.guardian_addresses = addressResults
-    //         }
-    //     });
-
-    // });
     $scope.toggleMin();
+    $scope.init();
 
     function fillPersonPointer() {
         let personPtr = new Parse.Object("Person");
@@ -335,22 +285,22 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         }
         else {
             personPtr.set('type', '');
-            personPtr.set('identity_id', $scope.currFamily.gurdian.identity_id);
-            personPtr.set('birthday', $scope.currFamily.gurdian.birthday);
+            personPtr.set('identity_id', appUser.activeFamily.gurdian.identity_id);
+            personPtr.set('birthday', appUser.activeFamily.gurdian.birthday);
             personPtr.set('gender', '');
             personPtr.set('family_rel_type', appUser.lists[3].familyHead); // familyRelation
-            personPtr.set('first_name', $scope.currFamily.gurdian.first_name);
-            personPtr.set('last_name', $scope.currFamily.gurdian.last_name);
+            personPtr.set('first_name', appUser.activeFamily.gurdian.first_name);
+            personPtr.set('last_name', appUser.activeFamily.gurdian.last_name);
             personPtr.set('email', '');
             personPtr.set('userId', Parse.User.current());
         }
-        personPtr.set('family_id', $scope.currFamily.family);
+        personPtr.set('family_id', appUser.activeFamily.family);
         return personPtr;
     }
 
     function fillAddressPointer() {
         let personPtr = new Parse.Object("Person");
-        personPtr.id = $scope.currFamily.gurdian.objectId;
+        personPtr.id = appUser.activeFamily.gurdian.objectId;
 
         let addressPtr = new Parse.Object("Address");
         addressPtr.set('type', $scope.addr.type);
@@ -363,7 +313,7 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
         addressPtr.set('country', 'Israel');
         addressPtr.set('zipcode', $scope.addr.zipcode);
         addressPtr.set('location', undefined);
-        addressPtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
+        addressPtr.set('object_rel_type', appUser.activeFamily.gurdian.object_type);
         addressPtr.set('object_rel_id', personPtr);        
 
         return addressPtr;
@@ -371,11 +321,11 @@ app.controller("familyCtrl", function($scope, $location, $log, appUser, loginSrv
 
     function fillPhonePointer() {
         let personPtr = new Parse.Object("Person");
-        personPtr.id = $scope.currFamily.gurdian.objectId;
+        personPtr.id = appUser.activeFamily.gurdian.objectId;
 
         let phonePtr = new Parse.Object("Phones");
         phonePtr.set('ext', undefined);
-        phonePtr.set('object_rel_type', $scope.currFamily.gurdian.object_type);
+        phonePtr.set('object_rel_type', appUser.activeFamily.gurdian.object_type);
         phonePtr.set('object_rel_id', personPtr);  
         phonePtr.set('type', $scope.phone_type);
         phonePtr.set('area_code', $scope.phone_areaCode);

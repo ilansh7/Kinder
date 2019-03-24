@@ -15,30 +15,32 @@ app.filter('personByType', function() {
   }
 });
 
-app.filter('phoneByPerson', function() {
-  return function(input, id) {
+app.filter("phoneByPerson", function() {
+  return function(arrPhones, id) {
       let out = [];
-      if (input === undefined) {
+      if (arrPhones === undefined) {
         return out;
       }
-      for (let i = 0; i < input.length; i++) {
-          if(input[i].person_id == id){
-              out.push(input[i]);
+      for (let i = 0; i < arrPhones.length; i++) {
+          if(arrPhones[i].person_id == id){
+              out.push(arrPhones[i]);
           }
       }
       return out;
   }
 });
 
-app.filter('addressByPerson', function() {
-  return function(input, id) {
+app.filter("addressByPerson", function() {
+  return function(arrAddress, id) {
       let out = [];
-      if (input === undefined) {
+      if (arrAddress === undefined) {
+        console.log("No array for id : " + id);
         return out;
       }
-      for (let i = 0; i < input.length; i++) {
-          if(input[i].fpersonId == id){
-              out.push(input[i]);
+      //console.log("Array found for id : " + id);
+      for (let i = 0; i < arrAddress.length; i++) {
+          if(arrAddress[i].person_id == id){
+              out.push(arrAddress[i]);
           }
       }
       return out;
