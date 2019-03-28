@@ -10,7 +10,7 @@ app.controller("addressCtrl", function($scope, $log, appUser, addressSrv) {
     $scope.currFamily = appUser.activeFamily;
     $scope.familyRelation = appUser.lists[3];
 
-    $scope.personId = $scope.currFamily.spause.objectId;
+    $scope.personId = $scope.currFamily.spause.id;
     $scope.personType = $scope.familyRelation.spause;
 
     //sleep(2500);
@@ -24,7 +24,7 @@ app.controller("addressCtrl", function($scope, $log, appUser, addressSrv) {
     }
 
     if ($scope.personType) {
-        addressSrv.getAddress($scope.currFamily.gurdian.objectId, $scope.currFamily.gurdian.object_type, 0).then(function(addressResults) {
+        addressSrv.getAddress($scope.currFamily.gurdian.id, $scope.currFamily.gurdian.object_type, 0).then(function(addressResults) {
             if (!addressResults) {
                 //return;
             }
@@ -59,7 +59,7 @@ app.controller("addressCtrl", function($scope, $log, appUser, addressSrv) {
 
     function fillAddressPointer() {
         let personPtr = new Parse.Object("Person");
-        personPtr.id = $scope.currFamily.gurdian.objectId;
+        personPtr.id = $scope.currFamily.gurdian.id;
 
         let addressPtr = new Parse.Object("Address");
         addressPtr.set('type', $scope.addr.type);

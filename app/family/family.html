@@ -26,21 +26,22 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-id="currFamily.gurdian.objectId" person-type="familyRelation.familyHead" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="currFamily.gurdian.id" person-type="familyRelation.familyHead" type="G" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptyLegalGardian">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
                             </div>
                         </div>
-                        <phone-details person-id="{{currFamily.gurdian.objectId}}" ng-show="hideLegalGardianPhones()"></phone-details>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
+                        <phone-details person-id="currFamily.gurdian.id" ng-show="hideLegalGardianPhones()"></phone-details>
+                        <add-phone-modal></add-phone-modal>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-click="updateFamilyMember('G')" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptyLegalGardian" ng-click="createFamilyMember('G')" onsubmit="return externalValidate()">Save</button>
                         <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
                         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button> -->
                     </form>
                 </div>
                       
-                <div uib-accordion-group class="panel-default" heading="Spause details">
+                <!-- <div uib-accordion-group class="panel-default" heading="Spause details">
                     <uib-accordion-heading>Spause details &nbsp;&nbsp;&nbsp;&nbsp;
                         <span ng-hide="isEmptySpause" class="text-warning float-right">
                             &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Spause Section"></i>
@@ -59,103 +60,24 @@
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                             </div>
                         </div>
-                        <address-details person-id="currFamily.spause.objectId" person-type="familyRelation.spause" ng-show="hideLegalGardianAddress()"></address-details>
+                        <address-details person-id="currFamily.spause.id" person-type="familyRelation.spause" ng-show="hideLegalGardianAddress()"></address-details>
                         <div ng-hide="isEmptySpause">
                             <div class="pt-2" ng-hide="hideLegalGardianPhones()">
                                 <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
                             </div>
                         </div>
-                        <phone-details person-id="{{currFamily.spause.objectId}}" ng-show="hideLegalGardianPhones()"></phone-details>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtIdNumber.$dirty}}">Update</button>
+                        <phone-details person-id="currFamily.spause.id" ng-show="hideLegalGardianPhones()"></phone-details>
+                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
                         <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptySpause" ng-click="createFamilyMember('S')" onsubmit="return externalValidate()">Save</button>
                     </form>
-                </div>
+                </div> -->
                             
-                <div uib-accordion-group class="mt-1" heading="recipe.name"> <!--ng-repeat="recipe in recipes" is-open="$first">-->
-                    {{recipe.description}}
+                <div uib-accordion-group class="mt-1" heading="Section"> <!--ng-repeat="recipe in recipes" is-open="$first">-->
+                    ---------
                 </div>
             </uib-accordion>
         </div>
-        <div class="form-row">                
-            <!-- <div class="personal-data form-group col-md-6">
-                <fieldset ng-form="subscriber"> <!-- style="border: 1px solid red; background-color: bisque;" -- >
-                <legend>Subscriber Details :</legend>
-                <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <label for="txtIdNumber">ID Number</label>
-                        <input type="text" class="form-control" id="txtIdNumber" placeholder="ID Number">
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label for="txtLastName">Last Name</label>
-                        <input type="text" class="form-control" id="txtLastName" placeholder="Last Name">
-                    </div>
-                    <!-- <abel class="col-md-2 col-form-label text-left"> -- >
-                    <div class="form-group col-md-4">
-                        <label for="txtFirstName">First Name</label>
-                        <input type="text" class="form-control" id="txtFirstName" placeholder="First Name">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-4"> <!--  ng-controller="datepickerCtrl" -- >
-                        <label for="dtBirthday">Date of Bitrh</label>
-                        <!-- <input type="date" class="form-control" id="dtBirthday" placeholder="Birthday"> -- >
-                        <div class="datepicker">
-                            <span class="input-group-btn">
-                                <button type="button" class="btn btn-secondary" ng-click="openDP()">
-                                    <i class="far fa-calendar-alt"></i>
-                                </button>
-                            </span>
-                            <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="birthday" is-open="dpPopup.opened" datepicker-options="dateOptions" ng-required="true" close-text="סגירה" clear-text="ניקוי" current-text="היום"/>
-                        </div>
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="txtParentName">Parent Name</label>
-                        <input type="text" class="form-control" id="txtParentName" placeholder="Parent Name">
-                    </div>
-                    <!-- <abel class="col-md-2 col-form-label text-left"> -- >
-                    <div class="form-group col-md-4">
-                        <label for="txtSpouseName">Spouse Name</label>
-                        <input type="text" class="form-control" id="txtSpouseName" placeholder="Spouse Name">
-                    </div>
-                </div>
-                </fieldset>
-                <div class="form-row">
-                    <div class="form-group col-md-4">
-                        <label for="txtStreet">Address</label>
-                        <input type="text" class="form-control" id="txtStreet" placeholder="Street Name">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtHouse" placeholder="House">
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtExt" placeholder="Ext">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label>&nbsp;</label>
-                        <input type="text" class="form-control" id="txtNeighborhood" placeholder="Neighborhood" required>
-                        <div class="invalid-feedback">Please provide a valid city.</div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col-md-6">
-                        <label for="inputCity">City</label>
-                        <input type="text" class="form-control" id="inputCity">
-                    </div>
-                    <div class="form-group col-md-4">
-                        <label for="inputState">State</label>
-                        <select id="inputState" class="form-control">
-                            <option selected>Choose...</option>
-                            <option>...</option>
-                        </select>
-                    </div>
-                    <div class="form-group col-md-2">
-                        <label for="inputZip">Zip</label>
-                        <input type="text" class="form-control" id="inputZip">
-                    </div>
-                </div>
-            </div> -->
+        <!-- <div class="form-row">                
             <div class="spacer form-group">
                 <div class="form-row">
                     <p>&nbsp;</p>
@@ -167,9 +89,9 @@
                     <permits-form></permits-form>
                 </div>
             </div>
-        </div>
+        </div> -->
         <button type="submit" class="btn btn-primary">Sign in</button>
     <!-- </form> -->
-    <add-address-modal></add-address-modal>
-    <add-phone-modal></add-phone-modal>
+    <!-- <add-address-modal></add-address-modal>
+    <add-phone-modal></add-phone-modal> -->
 </div>

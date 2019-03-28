@@ -34,7 +34,7 @@ app.filter("addressByPerson", function() {
   return function(arrAddress, id) {
       let out = [];
       if (arrAddress === undefined) {
-        console.log("No array for id : " + id);
+        //console.log("No array for id : " + id);
         return out;
       }
       //console.log("Array found for id : " + id);

@@ -7,7 +7,7 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
 
     function Person(personObj) {
         if (personObj) {
-            //this.objectId = personObj[0].get("objectId");
+            this.id = personObj.get("id");
             this.object_type = "";
             this.family_rel_type = personObj.get("family_rel_type");
             this.identity_id = personObj.get("identity_id");
@@ -32,6 +32,30 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
         return person;
     }
 
+    function updatePerson(id, obj) {
+        let async = $q.defer();
+
+        const tmpPerson = Parse.Object.extend('Person');
+        const query = new Parse.Query(tmpPerson);
+
+        query.get(id).then(function(object) {
+          object.set('identity_id', obj.identity_id);
+          //object.set('birthday', new Date(obj.birthday));
+          object.set('birthday', obj.birthday);
+          object.set('family_rel_type', obj.family_rel_type);
+          object.set('first_name', obj.first_name);
+          object.set('last_name', obj.last_name);
+          object.save().then(function(response) {
+            $log.info('Updated Person', response);
+            async.resolve(response);
+          }, function(error) {
+            $log.error('Error while updating Person', error);
+            async.reject(error);
+          });
+          return async.promise;
+        });        
+    }
+
     function addPerson(personObj) {
         let async = $q.defer();
 
@@ -39,7 +63,8 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
             $log.info('Person created', result);
 
             personObj = new Person(result);
-            personObj.objectId = result.id;
+            //personObj.objectId = result.id;
+            personObj.id = result.id;
             personObj.object_type = result.className;
             personArr.push(personObj);
 
@@ -77,7 +102,8 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
                 personArr = [];
                 for (let i = 0; i < results.length; i++) {
                     personObj = new Person(results[i]);
-                    personObj.objectId = results[i].id;
+                    //personObj.objectId = results[i].id;
+                    personObj.id = results[i].id;
                     personObj.object_type = results[i].className;
                     personArr.push(personObj);
                     personObj = null;
@@ -157,6 +183,7 @@ app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, fam
         newPerson: newPerson,
         addPerson: addPerson,
         getPerson: getPerson,
+        updatePerson: updatePerson,
         getUserData: getUserData
     }
 })

@@ -90,7 +90,7 @@ app.service('appUser', function($q, $log) {
             mobile  : "Mobile"
         },
         familyRelation = {
-            familyHead      : "H",
+            familyHead      : "G",
             spause          : "S",
             sisterBrother   : "B"
         }

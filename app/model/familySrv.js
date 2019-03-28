@@ -5,9 +5,9 @@ app.factory("familySrv", function ($q, $log) {
     const appFamily = null;
 
     function Family(parsefamily) {
-        this.objectId = parsefamily.get("id");
-        if (this.objectId === undefined) {
-            this.objectId = parsefamily.id;
+        this.id = parsefamily.get("id");
+        if (this.id === undefined) {
+            this.id = parsefamily.id;
         }
         this.family_id = parsefamily.get("family_id");
         this.family_num = parsefamily.get("family_id");

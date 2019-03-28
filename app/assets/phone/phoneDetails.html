@@ -9,17 +9,24 @@
                 <i class="text-success fas fa-phone-square fa-2x pl-3" title="Add New Phone" data-toggle="modal" data-target="#addPhoneModal"></i>
                 **{{personId}}**
             </div>
-            <div style="display: inline-flex;" class="col-md-6" ng-repeat="phone in phonesArr | phoneByPerson : personId" condition="$first"> <!-- | phoneByPerson : personId      -->
-                <div class="form-group col-md-5">
+            <div style="display: inline-flex;" class="col-md-6" ng-repeat="phone in phonesArr | addressByPerson : personId" condition="$first">
+            <!--<div style="display: inline-flex;" class="col-md-6" ng-repeat="phone in gPhonesArr" condition="$first"> <!- - | phoneByPerson : personId      -- > -->
+                <div class="form-group col-md-4">
                     <!-- <label for="inputPhoneType">Phone</label> -->
                     <!-- <input type="text" class="form-control" id="txtAddress" ng-model="guardian_address" placeholder="Address"> -->
                     <select id="inputPhoneType" class="form-control" ng-model="phone.type">
                         <option ng-repeat="(id,text) in phoneTypes" value="{{id}}">{{text}}</option>
                     </select>
                 </div>
-                <div class="form-group col-md-7">
+                <div class="form-group col-md-5">
                     <!-- <label>&nbsp;</label> -->
                     <input type="text" class="form-control" id="txtPhone" ng-model="phone.phone" placeholder="Phone Number">
+                </div>
+                <div class="form-group col-md-2 text-secondary">
+                    <i class="fas fa-edit fa-1x" title="Edit Phone Data"  ng-click="setData(phone)"></i>
+                    &nbsp;&nbsp;
+                    <i class="fas fa-trash-alt fa-1x" title="Edit Legal Guardian Section" ng-click="alert('hey');"></i>
+                    <input type="text" class="form-control" ng-model="phone.id" hidden>
                 </div>
             </div>
         </div>

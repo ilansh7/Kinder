@@ -1,14 +1,14 @@
 
 
-
-
 app.directive("phoneDetails", function() {
     return {
         templateUrl: "app/assets/phone/phoneDetails.html",
         restrcit: "E",
-        //controller: "familyCtrl"
+        controller: "phoneCtrl",
         scope: {
-            personId: "@"
+            type: "=",
+            personId: "=",
+            personType: "="
         }
     }
 })

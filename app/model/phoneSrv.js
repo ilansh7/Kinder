@@ -6,6 +6,7 @@ app.factory("phoneSrv", function ($q, $log) {
     let phoneObj = null;
 
     function Phone(phoneObj) {
+        this.id = phoneObj.get("id");
         this.type = phoneObj.get("type");
         this.person_id = phoneObj.get("person_id");
         this.object_rel_id = phoneObj.get("object_rel_id");
@@ -23,12 +24,9 @@ app.factory("phoneSrv", function ($q, $log) {
         // const phone = new tmpPhone();
         
         phoneObj.save().then(function(result) {
-                //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
-                //phone.set('family_id', calcFamilyNum(phone.id));
                 async.resolve(new Phone(result));
                 $log.info('Phone created', result);
             }, function(error) {
-                //if (typeof document !== 'undefined') document.write(`Error while creating Phone: ${JSON.stringify(error)}`);
                 async.reject(error);
                 $log.error('Error while creating Phone: ', error);
             }
@@ -38,12 +36,10 @@ app.factory("phoneSrv", function ($q, $log) {
 
     function getPhones(objId, objType, type) {
         let async = $q.defer();
+        let phones = [];
         const tmpPhone = Parse.Object.extend('Phones');
         const query = new Parse.Query(tmpPhone);
         
-        //const phoneObj = new Phone();
-        let phones = [];
-
         if (objId) {
             var personPtr = new Parse.Object("Person");
             personPtr.id = objId;
@@ -61,6 +57,7 @@ app.factory("phoneSrv", function ($q, $log) {
                 $log.info('Phone found', results);
                 for (let i = 0; i < results.length; i++) {
                     phoneObj = new Phone(results[i]);
+                    phoneObj.id = results[i].id;
                     phoneObj.person_id = phoneObj.object_rel_id.id;
                     //phones.push(new Phone(results[i]));                    
                     phones.push(phoneObj);                    
