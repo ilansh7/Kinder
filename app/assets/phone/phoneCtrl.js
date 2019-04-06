@@ -1,5 +1,3 @@
-
-
 app.controller("phoneCtrl", function($scope, $log, phoneSrv, appUser) {
 
     $scope.mySelf = {fName: 'Ilan',lName: 'Shchori'};
@@ -39,7 +37,7 @@ app.controller("phoneCtrl", function($scope, $log, phoneSrv, appUser) {
     });
 
     $scope.savePhone = function() {
-        $log.info("Button SavePhone Clicked");
+        $log.info("(phoneCtrl)Button SavePhone Clicked");
         //let closeModal = document.getElementById("btnDismissPhoneModal");
         //debugger;
         phoneSrv.addPhone(fillPhonePointer()).then(function(phone) {
@@ -63,7 +61,9 @@ app.controller("phoneCtrl", function($scope, $log, phoneSrv, appUser) {
 
     function fillPhonePointer() {
         let personPtr = new Parse.Object("Person");
-        personPtr.id = appUser.activeFamily.gurdian.id;
+        if ($scope.phone.CurrentPersonType = appUser.familyRelation.familyHead) {
+            personPtr.id = appUser.activeFamily.gurdian.id;
+        }
 
         let phonePtr = new Parse.Object("Phones");
         phonePtr.set('ext', undefined);

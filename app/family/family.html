@@ -5,93 +5,81 @@
 
 <div class="container">
     <!-- <form name="frmFamily"> -->
-        <div class="form-row w-100">
-            <uib-accordion close-others="oneAtATime" class="min-width-80" style="direction: rtl; float: right;">
-                <div uib-accordion-group class="panel-default w-100" > <!-- ng-class="{'div-disabled': isEmptySpause}" -->
-                    <uib-accordion-heading>Legal Guardian details &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span ng-hide="isEmptyLegalGardian" class="text-warning float-right">
-                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Legal Guardian Section" ng-click="alert('hey');"></i>
-                        </span>
-                        <span ng-hide="isEmptyLegalGardian" class="text-success float-right">
-                            <i class="fas fa-check-circle fa-1x" title="Legal Guardian Section is Filled"></i>
-                        </span>
-                        <span ng-show="isEmptyLegalGardian" class="text-danger float-right">
-                            <i class="fas fa-plus-circle fa-1x" title="Fill Legal Guardian Section"></i>
-                        </span>
-                    </uib-accordion-heading>                    
-                    <form name="frmLegalGardian">
-                        <guardian-details></guardian-details>
-                        <div ng-hide="isEmptyLegalGardian">
-                            <div ng-hide="hideLegalGardianAddress()">
-                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
-                            </div>
+    <div class="form-row w-100">
+        <uib-accordion close-others="oneAtATime" class="min-width-80" style="direction: rtl; float: right;">
+            <div uib-accordion-group class="panel-default w-100" > <!-- ng-class="{'div-disabled': isEmptySpause}" -->
+                <uib-accordion-heading>Legal Guardian details &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span ng-hide="isEmptyLegalGardian" class="text-warning float-right">
+                        &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Legal Guardian Section" ng-click="alert('hey');"></i>
+                    </span>
+                    <span ng-hide="isEmptyLegalGardian" class="text-success float-right">
+                        <i class="fas fa-check-circle fa-1x" title="Legal Guardian Section is Filled"></i>
+                    </span>
+                    <span ng-show="isEmptyLegalGardian" class="text-danger float-right">
+                        <i class="fas fa-plus-circle fa-1x" title="Fill Legal Guardian Section"></i>
+                    </span>
+                </uib-accordion-heading>                    
+                <form name="frmLegalGardian">
+                    <guardian-details></guardian-details>
+                    <div ng-hide="isEmptyLegalGardian">
+                        <div ng-hide="hideLegalGardianAddress()">
+                            <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
                         </div>
-                        <address-details person-id="currFamily.gurdian.id" person-type="familyRelation.familyHead" type="G" ng-show="hideLegalGardianAddress()"></address-details>
-                        <div ng-hide="isEmptyLegalGardian">
-                            <div class="pt-2" ng-hide="hideLegalGardianPhones()">
-                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
-                            </div>
+                    </div>
+                    <address-details person-id="currFamily.gurdian.id" person-type="familyRelation.familyHead" address-type="addressType" address-array="addressesArr" ng-show="hideLegalGardianAddress()"></address-details>
+                    <div ng-hide="isEmptyLegalGardian"> <!--  -->
+                        <div class="pt-2" ng-hide="hideLegalGardianPhones()"> <!--  -->
+                            <!-- <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" ng-click="adddPhone()">Add New Phone</button> -->
+                            <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal" ng-click="setPhoneParams(familyRelation.familyHead)">Add New Phone</button>
                         </div>
-                        <phone-details person-id="currFamily.gurdian.id" ng-show="hideLegalGardianPhones()"></phone-details>
-                        <add-phone-modal></add-phone-modal>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-click="updateFamilyMember('G')" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptyLegalGardian" ng-click="createFamilyMember('G')" onsubmit="return externalValidate()">Save</button>
-                        <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
-                        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button> -->
-                    </form>
-                </div>
-                      
-                <!-- <div uib-accordion-group class="panel-default" heading="Spause details">
-                    <uib-accordion-heading>Spause details &nbsp;&nbsp;&nbsp;&nbsp;
-                        <span ng-hide="isEmptySpause" class="text-warning float-right">
-                            &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Spause Section"></i>
-                        </span>
-                        <span ng-hide="isEmptySpause" class="text-success float-right">
-                            <i class="fas fa-check-circle fa-1x" title="Spause Section is Filled"></i>
-                        </span>
-                        <span ng-show="isEmptySpause" class="text-danger float-right">
-                            <i class="fas fa-plus-circle fa-1x" title="Fill Spause Section"></i>
-                        </span>
-                    </uib-accordion-heading>
-                    <form name="frmSpause">
-                        <spause-details></spause-details>
-                        <div ng-hide="isEmptySpause">
-                            <div ng-hide="hideLegalGardianAddress()">
-                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
-                            </div>
-                        </div>
-                        <address-details person-id="currFamily.spause.id" person-type="familyRelation.spause" ng-show="hideLegalGardianAddress()"></address-details>
-                        <div ng-hide="isEmptySpause">
-                            <div class="pt-2" ng-hide="hideLegalGardianPhones()">
-                                <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
-                            </div>
-                        </div>
-                        <phone-details person-id="currFamily.spause.id" ng-show="hideLegalGardianPhones()"></phone-details>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
-                        <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptySpause" ng-click="createFamilyMember('S')" onsubmit="return externalValidate()">Save</button>
-                    </form>
-                </div> -->
-                            
-                <div uib-accordion-group class="mt-1" heading="Section"> <!--ng-repeat="recipe in recipes" is-open="$first">-->
-                    ---------
-                </div>
-            </uib-accordion>
-        </div>
-        <!-- <div class="form-row">                
-            <div class="spacer form-group">
-                <div class="form-row">
-                    <p>&nbsp;</p>
-                </div>
-            </div></div>
-            <div class="form-row"> 
-            <div class="autorizations form-group">
-                <div class="form-row">
-                    <permits-form></permits-form>
-                </div>
+                    </div>
+                    <phone-details person-id="currFamily.gurdian.id" person-type="familyRelation.familyHead" phone-array="gPhonesArr" phone-params="phone" phone-types="phone.Types" parent-type="phone.CurrentPersonType" ng-show="hideLegalGardianPhones()"></phone-details> <!-- -->
+                    <!-- <add-phone-modal></add-phone-modal> -->
+                    <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptyLegalGardian" ng-click="updateFamilyMember('G')" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
+                    <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptyLegalGardian" ng-click="createFamilyMember('G')" onsubmit="return externalValidate()">Save</button>
+                    <!-- <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addAddressModal">Add Address</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#addPhoneModal">Add Phone</button> -->
+                </form>
             </div>
-        </div> -->
-        <button type="submit" class="btn btn-primary">Sign in</button>
+                    
+            <div uib-accordion-group class="panel-default" heading="Spause details">
+                <uib-accordion-heading>Spause details &nbsp;&nbsp;&nbsp;&nbsp;
+                    <span ng-hide="isEmptySpause" class="text-warning float-right">
+                        &nbsp;&nbsp;&nbsp;<i class="fas fa-edit fa-1x" title="Edit Spause Section"></i>
+                    </span>
+                    <span ng-hide="isEmptySpause" class="text-success float-right">
+                        <i class="fas fa-check-circle fa-1x" title="Spause Section is Filled"></i>
+                    </span>
+                    <span ng-show="isEmptySpause" class="text-danger float-right">
+                        <i class="fas fa-plus-circle fa-1x" title="Fill Spause Section"></i>
+                    </span>
+                </uib-accordion-heading>
+                <form name="frmSpause">
+                    <spause-details></spause-details>
+                    <div ng-hide="isEmptySpause">
+                        <div ng-hide="hideLegalGardianAddress()">
+                            <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addAddressModal">Add New Address</button>
+                        </div>
+                    </div>
+                    <address-details person-id="currFamily.spause.id" person-type="familyRelation.spause" ng-show="hideLegalGardianAddress()"></address-details>
+                    <div ng-hide="isEmptySpause"> <!---->
+                        <div class="pt-2" ng-hide="hideLegalGardianPhones()"> <!---->
+                            <button type="button" class="btn btn-outline-secondary form-control-sm fix-text pl-2" data-toggle="modal" data-target="#addPhoneModal">Add New Phone</button>
+                        </div>
+                    </div>
+                    <phone-details person-id="currFamily.spause.id" person-type="familyRelation.spause" phone-array="sPhonesArr" phone-params="phone" phone-types="phone.Types" parent-type="phone.CurrentPersonType" ng-show="hideLegalGardianPhones()"></phone-details>
+                    <!-- <add-phone-modal></add-phone-modal> -->
+                    <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-hide="isEmptySpause" ng-disabled="{{txtG_idNumber.$dirty}}">Update</button>
+                    <button type="submit" class="btn btn-primary form-control-sm fix-text mt-2" ng-show="isEmptySpause" ng-click="createFamilyMember('S')" onsubmit="return externalValidate()">Save</button>
+                </form>
+            </div>
+                        
+            <div uib-accordion-group class="mt-1" heading="Section"> <!--ng-repeat="recipe in recipes" is-open="$first">-->
+                ---------
+            </div>
+        </uib-accordion>
+    </div>
+    <button type="submit" class="btn btn-primary">Sign in</button>
+    <add-phone-modal></add-phone-modal>
     <!-- </form> -->
-    <!-- <add-address-modal></add-address-modal>
-    <add-phone-modal></add-phone-modal> -->
 </div>

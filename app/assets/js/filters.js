@@ -1,5 +1,3 @@
-
-
 app.filter('personByType', function() {
   return function(input, type) {
       let out = [];
@@ -18,7 +16,7 @@ app.filter('personByType', function() {
 app.filter("phoneByPerson", function() {
   return function(arrPhones, id) {
       let out = [];
-      if (arrPhones === undefined) {
+      if (arrPhones === undefined || arrPhones.length <= 0) {
         return out;
       }
       for (let i = 0; i < arrPhones.length; i++) {

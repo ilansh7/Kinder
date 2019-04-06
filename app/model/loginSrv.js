@@ -1,5 +1,3 @@
-
-
 app.factory("loginSrv", function($q, $log, appUser) {
 
     let activeUser = null;

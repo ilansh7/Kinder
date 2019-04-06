@@ -1,5 +1,3 @@
-
-
 app.factory("addressSrv", function ($q, $log) {
 
     const appFamily = null;
@@ -28,16 +26,11 @@ app.factory("addressSrv", function ($q, $log) {
 
     function addAddress(addressObj) {
         let async = $q.defer();
-        //const tmpAddress = Parse.Object.extend('Address');
-        //const address = new tmpAddress();
         
         addressObj.save().then(function(result) {
-                //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
-                //address.set('family_id', calcFamilyNum(address.id));
                 async.resolve(new Address(result));
                 $log.info('Address created', result);
             }, function(error) {
-                //if (typeof document !== 'undefined') document.write(`Error while creating Address: ${JSON.stringify(error)}`);
                 async.reject(error);
                 $log.error('Error while creating Address: ', error);
             }
@@ -51,13 +44,17 @@ app.factory("addressSrv", function ($q, $log) {
         const query = new Parse.Query(tmpAddress);
         
         let addresses = [];
-        if (type != "0") {
+        if (objId) {
+            const personPtr = new Parse.Object("Person");
+            personPtr.id = objId;
+            query.equalTo("object_rel_id", personPtr);
+        }
+        if (objType) {
+            query.equalTo("object_rel_type", objType);
+        }
+        if (type) {
             query.equalTo("type", type);
         }
-        var personPtr = new Parse.Object("Person");
-        personPtr.id = objId
-        query.equalTo("object_rel_id", personPtr);
-        query.equalTo("object_rel_type", objType);
 
         query.find().then(function(results) {
             if (results.length > 0) {

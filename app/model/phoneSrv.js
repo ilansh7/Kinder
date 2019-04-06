@@ -1,5 +1,3 @@
-
-
 app.factory("phoneSrv", function ($q, $log) {
 
     const appFamily = null;
@@ -20,8 +18,6 @@ app.factory("phoneSrv", function ($q, $log) {
 
     function addPhone(phoneObj) {
         let async = $q.defer();
-        // const tmpPhone = Parse.Object.extend('Phones');
-        // const phone = new tmpPhone();
         
         phoneObj.save().then(function(result) {
                 async.resolve(new Phone(result));
@@ -44,7 +40,7 @@ app.factory("phoneSrv", function ($q, $log) {
             var personPtr = new Parse.Object("Person");
             personPtr.id = objId;
             query.equalTo("object_rel_id", personPtr);
-            }
+        }
         if (objType) {
             query.equalTo("object_rel_type", objType);
         }

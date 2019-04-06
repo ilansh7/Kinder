@@ -1,4 +1,3 @@
-
 <div class="modal" id="addPhoneModal">
     <div class="modal-dialog modal-window modal-content">
         <div class="personal-data form-group">
@@ -14,23 +13,28 @@
                     <div class="form-row mr-2 ml-2">
                         <div class="form-group col-md-3">
                             <label for="txtPhoneType"><small>Type</small></label>
-                            <select id="txtPhoneType" class="form-control form-control-sm" ng-model="phone_type">
-                                <option ng-repeat="(id,text) in phoneTypes" value="{{id}}">{{text}}</option>
+                            <select id="txtPhoneType" class="form-control form-control-sm" ng-model="phone.phone_type">
+                                <option ng-repeat="(id,text) in phone.Types" value="{{id}}">{{text}}</option>
                             </select>
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="txtCountry"><small>Country</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtCountry" ng-model="phone_country" placeholder="Country">
+                            <input type="text" class="form-control form-control-sm" id="txtCountry" ng-model="phone.country_code" value="default_country_code" placeholder="Country">
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="form-group col-md-2">
                             <label for="txtAreaCode"><small>Area</small></label>
-                            <select id="txtAreaCode" class="form-control form-control-sm" ng-model="phone_areaCode">
-                                <option ng-repeat="(id,text) in phoneAreaCodes" value="{{id}}">{{text}}</option>
+                            <select id="txtAreaCode" class="form-control form-control-sm" ng-model="phone.area_code" required>
+                                <option ng-repeat="(id,text) in phone.AreaCodes" value="{{id}}">{{text}}</option>
                             </select>
                         </div>
                         <div class="form-group col-md-3">
                             <label for="txtNumber"><small>Number</small></label>
-                            <input type="text" class="form-control form-control-sm" id="txtNumber" ng-model="phone_number" placeholder="Number" required>
+                            <input type="text" class="form-control form-control-sm" id="txtNumber" ng-model="phone.number" placeholder="Number" required>
+                            <div class="invalid-feedback">Please provide a valid city.</div>
+                        </div>
+                        <div class="form-group col-md-2">
+                            <label for="txtExt"><small>Extention</small></label>
+                            <input type="text" class="form-control form-control-sm" id="txtExt" ng-model="phone.ext" placeholder="Extention">
                             <div class="invalid-feedback">Please provide a valid city.</div>
                         </div>
                     </div>
@@ -43,4 +47,4 @@
         </div>
     </div>
 </div>
-    
+

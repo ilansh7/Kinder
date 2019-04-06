@@ -1,5 +1,3 @@
-
-
 app.factory("personSrv", function($q, $log/*, appUser, addressSrv, loginSrv, familySrv*/) {
 
     let personObj = null;

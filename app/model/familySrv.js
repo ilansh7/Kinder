@@ -1,5 +1,3 @@
-
-
 app.factory("familySrv", function ($q, $log) {
 
     const appFamily = null;
@@ -17,18 +15,14 @@ app.factory("familySrv", function ($q, $log) {
         let async = $q.defer();
         const tmpFamily = Parse.Object.extend('Family');
         const family = new tmpFamily();
-        
         //family.set('family_id', 1);
         
         family.save().then(function(results) {
-                //if (typeof document !== 'undefined') document.write(`Family created: ${JSON.stringify(result)}`);
-                //family.set('family_id', calcFamilyNum(family.id));
                 var familyObj = new Family(results);
                 updateFamily(familyObj.objectId);
                 async.resolve(familyObj);
                 $log.info('Family created', results);
             }, function(error) {
-                //if (typeof document !== 'undefined') document.write(`Error while creating Family: ${JSON.stringify(error)}`);
                 async.reject(error);
                 $log.error('Error while creating Family: ', error);
             }
@@ -45,7 +39,6 @@ app.factory("familySrv", function ($q, $log) {
             object.save().then((response) => {
                 $log.info('Updated Family', response);
             }, function(error) {
-                //if (typeof document !== 'undefined') document.write(`Error while updating Family: ${JSON.stringify(error)}`);
                 $log.error('Error while updating Family', error);
             });
         });        
